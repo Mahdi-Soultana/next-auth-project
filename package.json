@@ -11,6 +11,8 @@
   "dependencies": {
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
+    "cloudinary": "^1.27.1",
+    "env-cmd": "^10.1.0",
     "framer-motion": "^5.3.3",
     "mongoose": "^6.0.14",
     "next": "11.1.2",

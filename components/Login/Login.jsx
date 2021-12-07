@@ -7,7 +7,7 @@ import getFile from "../../utils/getFile";
 const initUser = {
   password: "",
   email: "",
-  image: "/images/gust.jpg",
+  avatar: "/images/gust.jpg",
 };
 function Login() {
   const router = useRouter();
@@ -15,6 +15,7 @@ function Login() {
   const [user, setUser] = useState(initUser);
   const [load, setLoad] = useState("false");
   const [isValid, setIsVlaid] = useState("false");
+  const [loading, setLoading] = useState("");
   let formReady = !!user.email.trim() && !!user.password;
 
   const handelSwitch = () => {
@@ -23,21 +24,40 @@ function Login() {
   };
   async function handelSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     if (switcher) {
-      router.push("/welcom");
-      console.log("user", user);
+      try {
+        const newuser = await fetch("/api/auth/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        }).then((res) => res.json());
+        console.log(user, "user");
+        console.log(newuser, "New user");
+        const res = await signIn("credentials", {
+          redirect: false,
+          ...newuser,
+        });
+
+        router.push("/welcome");
+      } catch (e) {
+        setLoading(false);
+      }
     } else {
       const res = await signIn("credentials", {
         redirect: false,
         ...user,
       });
-      if (res.ok) {
+      if (!res.error) {
         router.push("/welcome");
       }
     }
+    setLoading(false);
   }
   async function handelOnChange(e) {
-    if (e.target.name === "image") {
+    if (e.target.name === "avatar") {
       let file = e.target.files[0];
       setLoad("true");
       if (file) {
@@ -51,7 +71,7 @@ function Login() {
         setLoad("false");
         setUser((prevS) => ({
           ...prevS,
-          image: "/images/gust.jpg",
+          avatar: "/images/gust.jpg",
         }));
       }
     } else {
@@ -62,12 +82,12 @@ function Login() {
     }
   }
   return (
-    <StyledLogin onSubmit={handelSubmit} load={load} autocomplete="off">
+    <StyledLogin onSubmit={handelSubmit} load={load} autoComplete="off">
       <h1> {switcher ? "SignUp Now" : "Login Now"}</h1>
       <label htmlFor="name">
         <span>email</span>
         <input
-          autocomplete="off"
+          autoComplete="off"
           type="email"
           placeholder="xyz@email.com"
           name="email"
@@ -82,7 +102,7 @@ function Login() {
           placeholder="xxxxxxxxxx"
           type="password"
           name="password"
-          autocomplete="off"
+          autoComplete="off"
           value={user.password}
           onChange={handelOnChange}
           required
@@ -91,23 +111,26 @@ function Login() {
 
       {switcher && (
         <label htmlFor="image">
-          <span>image</span>
+          <span>avatar</span>
           <div className="image">
             <span>
-              <img src={user.image} alt="img" />
+              <img src={user.avatar} alt="img" />
             </span>
             <input
               placeholder="xxxxxxxxxx"
               autoComplete="off"
               type="file"
-              name="image"
+              name="avatar"
+              id="image"
               onChange={handelOnChange}
               required
             />
           </div>
         </label>
       )}
-      <button disabled={!formReady}>{switcher ? "SignUp" : "Login"}</button>
+      <button disabled={!formReady || loading}>
+        {switcher ? "SignUp" : "Login"}
+      </button>
       <span onClick={handelSwitch}>
         {switcher ? "You have an account" : "New User ?"}
       </span>
