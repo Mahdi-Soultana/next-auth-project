@@ -1,5 +1,5 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
-export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
-}
+import ncFn, { authenticated } from "../../utils/ncFn";
+ncFn.use(authenticated).get((req, res) => {
+  res.json({ res: "heiiiiiiiii" });
+});
+export default ncFn;

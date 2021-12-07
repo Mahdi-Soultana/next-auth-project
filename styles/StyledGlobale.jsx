@@ -60,6 +60,19 @@ button,.btn {
     background: #ffffff;
     color: #002b47;
   }
-}
 
+}
+a{
+  display:inline-block;
+  padding:0 1rem;
+}
+.about{
+
+  font-size:1.7rem;
+  font-style: italic;
+  font-weight: bold;
+  &:hover{
+    color:#6bc4ff;
+  }
+}
       `;
