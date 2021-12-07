@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../components/layout/Layout";
 import LoginComponent from "../components/Login/Login";
-import { checkAuth, userAuthenticated } from "../utils/auth";
+import { checkAuth, userAuthenticated } from "../utils/authRedirect";
 
 function Login() {
   return (

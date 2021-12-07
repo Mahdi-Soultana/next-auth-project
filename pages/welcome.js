@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import React from "react";
 import Layout from "../components/layout/Layout";
 import WelcomHome from "../components/WelcomHome/WelcomHome";
-import { protectPage } from "../utils/auth";
+import { protectPage } from "../utils/authRedirect";
 
 function welcom() {
   const { data: session, status } = useSession();

@@ -5,7 +5,10 @@ function Footer() {
   return (
     <FooterStyled>
       <h2 title="Mahdi Soultana">
-        Made By <a href="https://github.com/Mahdi-Soultana">Mahdi Soultana</a>{" "}
+        Made By{" "}
+        <a href="https://github.com/Mahdi-Soultana" target="_blank">
+          Mahdi Soultana
+        </a>{" "}
         Source Code
       </h2>
     </FooterStyled>
