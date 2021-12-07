@@ -2,9 +2,9 @@ import cloudinary from "cloudinary";
 
 export function config(image) {
   cloudinary.config({
-    cloud_name: "soultana-mahdi",
-    api_key: "854179451261813",
-    api_secret: "_WVO8zT9yB_gQEFiSAjPXn-ncE4",
+    cloud_name: process.env.COULDINARY_COULD_NAME,
+    api_key: process.env.COULDINARY_API_KEY,
+    api_secret: process.env.COULDINARY_API_SECRET,
   });
 
   return new Promise((resolve, reject) => {
