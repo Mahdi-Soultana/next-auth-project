@@ -11,7 +11,7 @@ const options = {
   connectTimeoutMS: 1000,
 };
 
-function connectDB(req, res, next) {
+function connectDB(req, res, next = () => {}) {
   mongoose.connect(process.env.URI, options).then(
     () => {
       /** ready to use. The `mongoose.connect()` promise resolves to mongoose instance. */

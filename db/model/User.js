@@ -12,8 +12,15 @@ const user = new Schema({
     required: true,
   },
   avatar: {
-    public_id: String,
-    url: String,
+    public_id: {
+      type: String,
+      default: "854179451261813",
+    },
+    url: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/soultana-mahdi/image/upload/v1638902215/next-auth-demo/avatars/bzk8jfhnabsraivlndlt.jpg",
+    },
   },
 });
 

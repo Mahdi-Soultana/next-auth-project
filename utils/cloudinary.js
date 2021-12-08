@@ -17,7 +17,10 @@ export function config(image) {
         crop: "scale",
       },
       (err, url) => {
-        if (err) return reject(err);
+        if (err) {
+          console.log(err);
+          return reject(err);
+        }
         return resolve(url);
       },
     );

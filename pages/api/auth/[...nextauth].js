@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
+import User from "../../../db/model/User";
+import connectDb from "../../../db/connectDb";
 export default NextAuth({
   session: {
     jwt: true,
@@ -10,19 +11,15 @@ export default NextAuth({
     CredentialsProvider({
       name: "Credentials",
       async authorize(credentials, req) {
-        // Add logic here to look up the user from the credentials supplied
-        const user = { id: 1, name: "J Smith", email: "jsmith@example.com" };
-
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user;
-        } else {
-          // If you return null or false then the credentials will be rejected
-          return null;
-          // You can also Reject this callback with an Error or with a URL:
-          // throw new Error('error message') // Redirect to error page
-          // throw '/path/to/redirect'        // Redirect to a URL
+        await connectDb();
+        const user = await User.findOne({ email: credentials.email });
+        if (!user) {
+          throw new Error("email not found !");
         }
+        if (user.password.toString() !== credentials.password.toString()) {
+          throw new Error("wrong password !");
+        }
+        return user;
       },
     }),
   ],
