@@ -8,6 +8,7 @@ to{
 }
 `;
 export const StyledLogin = styled.form`
+  text-align: center;
   margin: 2rem auto;
   max-width: 600px;
   width: 100%;
@@ -37,12 +38,18 @@ export const StyledLogin = styled.form`
   button {
     width: 100%;
     max-width: 300px;
-    margin: 3rem auto 0;
+    margin: 1.5rem auto 0;
     display: block;
     &:disabled {
       opacity: 0.7;
       cursor: not-allowed;
     }
+  }
+  h4 {
+    font-size: 2rem;
+    margin: 2rem auto 1rem;
+    text-align: center;
+    color: #ffffff;
   }
   h1 {
     font-size: 4rem;

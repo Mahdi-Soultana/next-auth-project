@@ -6,11 +6,14 @@ import { signIn } from "next-auth/react";
 import { StyledLogin } from "./SytledLogin";
 import getFile from "../../utils/getFile";
 import { transform } from "framer-motion";
+import SignInBTN from "./Btns/SignInBTN";
+import LinkedIn from "./Btns/LinkedIn";
 const initUser = {
   password: "",
   email: "",
   avatar: "/images/gust.jpg",
 };
+
 function Login() {
   const router = useRouter();
   const [switcher, setSwitcher] = useState(false);
@@ -29,6 +32,7 @@ function Login() {
     setLoading("true");
 
     let toastlLoading;
+
     if (switcher) {
       try {
         toastlLoading = toast.loading("we're creating your account ! 😇");
@@ -122,9 +126,9 @@ function Login() {
       }));
     }
   }
-  const loadimg = load === "true" || loading === "true" ? "true" : "false";
+  const loadingConst = load === "true" || loading === "true" ? "true" : "false";
   return (
-    <StyledLogin onSubmit={handelSubmit} load={loadimg} autoComplete="off">
+    <StyledLogin onSubmit={handelSubmit} load={loadingConst} autoComplete="off">
       <h1> {switcher ? "SignUp Now" : "Login Now"}</h1>
       <label htmlFor="name">
         <span>email</span>
@@ -179,6 +183,33 @@ function Login() {
       <button disabled={!formReady || loading === "true" ? true : false}>
         {switcher ? "SignUp" : "Login"}
       </button>
+
+      {!switcher && (
+        <>
+          <h4>Or SignIn with:</h4>
+          <hr />
+          <SignInBTN
+            name="github"
+            disabled={!formReady || loading === "true" ? true : false}
+          />
+          <SignInBTN
+            name="linkedin"
+            disabled={!formReady || loading === "true" ? true : false}
+          />
+          {/* <SignInBTN
+            name="twitter"
+            disabled={!formReady || loading === "true" ? true : false}
+          /> */}
+          <SignInBTN
+            name="facebook"
+            disabled={!formReady || loading === "true" ? true : false}
+          />
+          {/* <SignInBTN
+            name="instagram"
+            disabled={!formReady || loading === "true" ? true : false}
+          /> */}
+        </>
+      )}
       <span onClick={handelSwitch}>
         {switcher ? "You have an account" : "New User ?"}
       </span>
