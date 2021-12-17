@@ -1,4 +1,5 @@
 import { getSession } from "next-auth/react";
+
 export async function protectPage(ctx) {
   const session = await getSession(ctx);
   if (!session) {

@@ -6,6 +6,7 @@ const user = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -22,6 +23,7 @@ const user = new Schema({
         "https://res.cloudinary.com/soultana-mahdi/image/upload/v1638902215/next-auth-demo/avatars/bzk8jfhnabsraivlndlt.jpg",
     },
   },
+  blogs: [{ type: Schema.Types.ObjectId, ref: "blogPost" }],
 });
 
 export default mongoose.models.user || mongoose.model("user", user);
