@@ -13,7 +13,7 @@ export const BtnStyled = styled.button`
   }
 `;
 
-import { LINKEDIN_URL } from "../../../Helper/auth";
+import { LINKEDIN_URL } from "../../../../Helper/auth";
 
 export default function LinkedInAuth() {
   return (

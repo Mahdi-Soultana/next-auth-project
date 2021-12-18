@@ -66,8 +66,7 @@ html {
 
 
 body {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background-color: #efefef;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -137,4 +136,95 @@ button{
   box-shadow: none;
 }
 }
+
+ul a{
+  text-transform:capitalize;
+  /* text-transform: capitalize; */
+  display:inline-block;
+  margin:0 1rem;
+  font-size:1.6rem;
+  font-weight:600;
+  color:white;
+  letter-spacing:1px;
+  &:hover{
+    opacity:.6;
+  }
+}
+.title-container{
+  padding:1rem;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+h1{
+    text-align:left;
+  font-family: 'Montserrat', sans-serif;
+    font-weight:600;
+    font-size:3rem;
+
+    padding:2rem;
+  }
+  h2{
+    font-family: 'Roboto Slab', serif;
+     font-weight:600;
+    font-size:2rem;
+  }
+}
+h1,h2,h3,h4,h5{
+  text-transform:capitalize;
+}
+.marked-Down{
+  .content{
+    width:100%;
+  max-width:800px;
+  margin:1rem auto;
+  }
+
+  text-align:left;
+  font-size:1.6rem;
+  font-weight:400;
+  .img-container{
+    width:100%;
+    height:400px;
+  display:block;
+  overflow:hidden;
+  img{
+    height:100%;
+    object-fit:cover;
+    height:100%;
+    width:100%;
+  }
+  }
+  & h1{
+    text-align:left;
+    font-family: 'Roboto Slab', serif;
+    font-weight:600;
+    padding:2rem;
+  }
+  p,ul,li{
+    margin:1rem;
+    list-style:bullet;
+  }
+
+  code{
+    background-color:#3724a5;;
+    display:block;
+    padding:1rem;
+    text-shadow:0px 0px 5px rgba(0,0,0,.5);
+    border-radius:.1em;
+    color:#f1f1f1;
+    font-family: 'M PLUS Code Latin', sans-serif;
+
+    margin:.5rem;
+  }
+  a{
+    color:darkgray;
+    border-bottom:blue solid 2px;
+  }
+}
+
       `;
+
+// font-family: 'M PLUS Code Latin', sans-serif;
+// font-family: 'Montserrat', sans-serif;
+// font-family: 'Roboto Slab', serif;

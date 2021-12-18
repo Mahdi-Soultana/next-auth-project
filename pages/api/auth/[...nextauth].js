@@ -10,7 +10,6 @@ import connectDb from "../../../db/connectDb";
 export default NextAuth({
   session: {
     jwt: true,
-    secret: process.env.JWT_SECRET,
   },
   providers: [
     InstagramProvider({
@@ -67,4 +66,5 @@ export default NextAuth({
       return session;
     },
   },
+  secret: process.env.JWT_SECRET,
 });

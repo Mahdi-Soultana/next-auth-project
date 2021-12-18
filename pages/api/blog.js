@@ -4,7 +4,7 @@ import connectDB from "../../db/connectDb";
 ncFn
   .use(authenticated)
   .use(connectDB)
-  .get((req, res) => {
-    res.json({ res: "heiiiiiiiii" });
+  .post((req, res) => {
+    res.json({ success: "heiiiiiiiii" });
   });
 export default ncFn;
