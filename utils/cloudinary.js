@@ -1,6 +1,18 @@
 import cloudinary from "cloudinary";
 
-export function config(image) {
+export async function config(image, folder = "avatar") {
+  let width;
+  switch (folder) {
+    case "avatar":
+      width = 200;
+      break;
+    case "thumbnial":
+      width = 600;
+      break;
+    default:
+      width = 200;
+  }
+
   cloudinary.config({
     cloud_name: process.env.COULDINARY_COULD_NAME,
     api_key: process.env.COULDINARY_API_KEY,
@@ -12,16 +24,16 @@ export function config(image) {
       image,
       {
         resource_type: "auto",
-        folder: "/next-auth-demo/avatars",
-        width: "200",
+        folder: `/next-auth-demo/${folder}`,
+        width,
         crop: "scale",
       },
-      (err, url) => {
+      (err, res) => {
         if (err) {
           console.log(err);
           return reject(err);
         }
-        return resolve(url);
+        return resolve(res);
       },
     );
   });

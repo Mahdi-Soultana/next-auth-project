@@ -1,7 +1,7 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Layout from "../components/layout/Layout";
-import CreateBlog from "../components/Pages/createBlog/CreateBlog";
+import CreateBlog from "../components/page-components/createBlog/CreateBlog";
 import { protectPage } from "../utils/authRedirect";
 
 function Createblog() {

@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/layout/Layout";
-import LoginComponent from "../components/pages/Login/Login";
+import LoginComponent from "../components/page-components/Login/Login";
 import { userAuthenticated } from "../utils/authRedirect";
 
 function Login() {

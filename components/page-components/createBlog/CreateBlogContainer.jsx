@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Form from "./Form";
 import MarkedDonwForm from "./MarkedDonwForm";
 
-import { StyledForm } from "../Login/StyledLogin";
+import { FormStyledC } from "../Login/StyledForm";
 import ActiveBtns from "./ActiveBtns";
 
 function CreateBlogContainer({ selectedState, sendData }) {
@@ -23,7 +23,7 @@ function CreateBlogContainer({ selectedState, sendData }) {
         <h1>impress our community by you new Blog !</h1>
         <h2> {!switcher ? "Create Blog!" : "Update Blog"}</h2>
       </div>
-      <StyledForm onSubmit={handelSubmit}>
+      <FormStyledC onSubmit={handelSubmit}>
         <ActiveBtns selectedState={selectedState} />
 
         {selected === "edit" ? (
@@ -31,7 +31,7 @@ function CreateBlogContainer({ selectedState, sendData }) {
         ) : (
           <MarkedDonwForm blogState={blogState} />
         )}
-      </StyledForm>
+      </FormStyledC>
     </>
   );
 }

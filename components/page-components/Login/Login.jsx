@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 // import imgDEFAULT from "/images/gust.jpg";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
-import { StyledLogin } from "./StyledLogin";
+import { StyledLogin } from "./StyledLoginForm";
 import getFile from "../../../utils/getFile";
 import { transform } from "framer-motion";
 import SignInBTN from "./Btns/SignInBTN";

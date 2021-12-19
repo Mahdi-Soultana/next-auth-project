@@ -44,7 +44,7 @@ export default NextAuth({
         if (user.password.toString() !== credentials.password.toString()) {
           throw new Error("wrong password !");
         }
-        console.log(user);
+        req.user = user;
         let {
           email,
           avatar: { url: image },
@@ -54,8 +54,8 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token }) {
-      token.any_property = "ANY_PROPERTY HERER from callbacks jwt !!  ";
+    async jwt({ token, user }) {
+      token.any_property = "ANY_PROPERTY in [...nextauth] callbacks jwt !!  ";
 
       return token;
     },

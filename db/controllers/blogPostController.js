@@ -1,19 +1,37 @@
 import BlogPostModel from "../model/BlogPosts";
 
 ///createPost
-async function createPost(req, res) {
-  const BlogPost = await BlogPostModel.create(req.body);
-  req.user.blogPosts.push(BlogPost);
-  await req.user.save();
-  res.send({ success: "post Created", post: BlogPost });
+export async function createPost(req, res) {
+  try {
+    const { title, content } = req.body;
+    const BlogPost = await BlogPostModel.create({
+      title,
+      content,
+      thumbnial: req.thumbnial,
+    });
+    req.user.blogs.push(BlogPost);
+    await req.user.save();
+    res.send({ success: "post Created", id: BlogPost.id });
+  } catch (e) {
+    throw new Error(e.message);
+  }
 }
 ///deletePost
-async function deletePost(req, res) {
+export async function deletePost(req, res) {
   const BlogPost = await BlogPostModel.findByIdAndDelete(req.params.id);
   res.send({ success: "post Deleted", post: BlogPost });
 }
+///findPost
+export async function findPost(req, res) {
+  try {
+    const BlogPost = await BlogPostModel.findById(req.params.id);
+    res.send({ success: "post found", post: BlogPost });
+  } catch (e) {
+    throw new Error(e.message);
+  }
+}
 ///Updated Post
-async function updatePost(req, res) {
+export async function updatePost(req, res) {
   const BlogPost = await BlogPostModel.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -23,13 +41,13 @@ async function updatePost(req, res) {
   res.send({ success: "post Updated", post: BlogPost });
 }
 ///findPostsMe
-async function findPostsMe(req, res) {
+export async function findPostsMe(req, res) {
   const BlogPosts = await BlogPostModel.find({ email: req.user.email });
 
   res.send({ success: "posts Found", posts: BlogPosts });
 }
 ///findPostsAll
-async function findPostsAll(req, res) {
+export async function findPostsAll(req, res) {
   const skiped = req.query.skip || 0;
   const BlogPosts = await BlogPostModel.find().limit(6).skip(skiped);
 

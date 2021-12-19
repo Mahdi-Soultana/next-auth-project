@@ -3,19 +3,29 @@ import CreateBlogContainer from "./CreateBlogContainer";
 import { toast } from "react-toastify";
 import { useMutation } from "react-query";
 import Form from "./Form";
+import { useRouter } from "next/router";
 function CreateBlog() {
+  const router = useRouter();
   const selectedState = useState("edit");
   const [response, setResponse] = useState(null);
   const { mutate, isLoading, isSuccess, isError } = useMutation(
-    blogPostMutate,
+    (data) =>
+      toast.promise(async () => await blogPostMutate(data), {
+        pending: "Fetching data",
+        success: "response back",
+        error: "Something went wrong 🤯",
+      }),
+
     {
       onSuccess: (data) => {
         if (data?.success) {
-          toast.success("post Created !", {
+          toast.success(data.success, {
             icon: "🚀",
           });
         }
         setResponse(data);
+
+        router.replace(`/blogs/${data.id}`);
       },
       onError: (e) => {
         setResponse(e);
@@ -37,9 +47,12 @@ function CreateBlog() {
 
 async function blogPostMutate(data) {
   try {
+    console.log(data);
     const res = await fetch("/api/blog", {
       method: "POST",
-      "Content-Type": "application/json",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(data),
     }).then((res) => res.json());
     if (res.error) {
