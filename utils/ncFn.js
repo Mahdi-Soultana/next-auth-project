@@ -1,21 +1,17 @@
 // pages/api/hello.js
 import nc from "next-connect";
 import { getSession } from "next-auth/react";
-import userModel from "../db/model/User";
+
 export async function authenticated(req, res, next) {
-  const session = await getSession({ req });
+  const session = await getSession(req);
 
   if (!session) {
     throw new Error("please Login to access this route API !");
+    return;
   }
-  try {
-    const user = await userModel.findOne({ email: session.user.email });
-    req.user = user;
-    next();
-  } catch (e) {
-    console.log(e);
-    throw new Error("error from user find session");
-  }
+
+  req.session = session;
+  next();
 }
 
 const ncFn = nc({

@@ -10,16 +10,13 @@ const blogPostSchema = new Schema({
   thumbnial: String,
   content: String,
   likes: [{ type: Schema.Types.ObjectId, ref: "user" }],
+  owner: { type: Schema.Types.ObjectId, ref: "user" },
   comment: [
     {
       type: Schema.Types.ObjectId,
       ref: "comment",
     },
   ],
-});
-
-blogPostSchema.virtual("likesCount").get(function () {
-  return this.likes.length;
 });
 
 blogPostSchema.method.addLike = function (user) {

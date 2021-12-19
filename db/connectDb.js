@@ -1,28 +1,43 @@
 import mongoose from "mongoose";
 
-const options = {
-  autoIndex: true, // Don't build indexes
-  maxPoolSize: 10, // Maintain up to 10 socket connections
-  serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
-  socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-  family: 4, // Use IPv4, skip trying IPv6
-  keepAlive: true,
-  keepAliveInitialDelay: 300000,
-  connectTimeoutMS: 10000,
-};
+const MONGODB_URI = process.env.URI;
 
-function connectDB(req, res, next = () => {}) {
-  mongoose.connect(process.env.URI, options).then(
-    () => {
-      /** ready to use. The `mongoose.connect()` promise resolves to mongoose instance. */
-      console.log("connect success");
-      next();
-    },
-    (err) => {
-      throw new Error("initial connection error !!");
-      console.warn(err);
-      /** handle initial connection error */
-    },
+if (!MONGODB_URI) {
+  throw new Error(
+    "Please define the MONGODB_URI environment variable inside .env.local",
   );
 }
-export default connectDB;
+
+/**
+ * Global is used here to maintain a cached connection across hot reloads
+ * in development. This prevents connections growing exponentially
+ * during API Route usage.
+ */
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function dbConnect() {
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    const opts = {
+      useNewUrlParser: true,
+      bufferCommands: false,
+    };
+
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      return mongoose;
+    });
+  }
+  console.log("awaiting connected to DB !!");
+  cached.conn = await cached.promise;
+  console.log("success connected to DB !!");
+  return cached.conn;
+}
+
+export default dbConnect;

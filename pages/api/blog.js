@@ -1,10 +1,14 @@
 import ncFn, { authenticated } from "../../utils/ncFn";
-import connectDB from "../../db/connectDb";
+
 import { config } from "../../utils/cloudinary";
-import { createPost } from "../../db/controllers/blogPostController";
+import { appendUser } from "../../utils/appendReqUser";
+import {
+  createPost,
+  findPostsAll,
+} from "../../db/controllers/blogPostController";
 ncFn
-  .use(connectDB)
-  .use(authenticated)
+  .use(appendUser)
+  .get(findPostsAll)
   .use(async (req, res, next) => {
     const thumb = req.body.thumbnial;
 
@@ -21,4 +25,5 @@ ncFn
     }
   })
   .post(createPost);
+
 export default ncFn;

@@ -8,6 +8,7 @@ export async function createPost(req, res) {
       title,
       content,
       thumbnial: req.thumbnial,
+      owner: req.user,
     });
     req.user.blogs.push(BlogPost);
     await req.user.save();
@@ -49,7 +50,13 @@ export async function findPostsMe(req, res) {
 ///findPostsAll
 export async function findPostsAll(req, res) {
   const skiped = req.query.skip || 0;
-  const BlogPosts = await BlogPostModel.find().limit(6).skip(skiped);
-
-  res.send({ success: "posts Found", posts: BlogPosts });
+  const BlogPosts = await BlogPostModel.find(
+    {},
+    { thumbnial: 1, title: 1, likes: 1 },
+  ).populate("owner", "avatar email");
+  res.send({
+    success: "posts Found",
+    posts: BlogPosts,
+    postsCount: BlogPosts.length,
+  });
 }

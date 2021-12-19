@@ -174,6 +174,10 @@ h1,h2,h3,h4,h5{
   text-transform:capitalize;
 }
 .marked-Down{
+  background-color:#fefefe;
+  margin:2vw auto 2rem;
+  padding-bottom:2rem;
+  box-shadow:0px 0px 5px rgba(0,0,0,.5);
   .content{
     width:100%;
   max-width:800px;

@@ -26,4 +26,9 @@ const user = new Schema({
   blogs: [{ type: Schema.Types.ObjectId, ref: "blogPost" }],
 });
 
+user.virtual("id").get(function () {
+  return this._id.toHexString();
+});
+
+user.set("toJson", { virtual: true });
 export default mongoose.models.user || mongoose.model("user", user);

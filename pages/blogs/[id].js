@@ -5,7 +5,6 @@ import BlogPostModel from "../../db/model/BlogPosts";
 import { getSession } from "next-auth/react";
 import SingleBlog from "../../components/page-components/singleBlog/SingleBlog";
 function About(props) {
-  console.log(props.blogPost);
   return (
     <Layout title="Blog A">
       <SingleBlog blogState={props?.blogPost} />
