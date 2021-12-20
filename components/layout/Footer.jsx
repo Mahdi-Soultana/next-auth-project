@@ -19,7 +19,7 @@ export const FooterStyled = styled.footer`
   color: #333;
   font-size: 1.3rem;
   font-weight: bold;
-  margin-top: auto;
+  margin: 1rem auto;
   a {
     color: #004b7c;
   }

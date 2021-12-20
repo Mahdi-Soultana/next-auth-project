@@ -2,8 +2,9 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import LikesController from "../../likes-controller/Likes-controller";
+import CardUserInfo from "../../styledComponents/CardUserInfo";
 function MarkedDonwForm({
-  blogState: [{ content, title, thumbnial }],
+  blogState: [{ content, title, thumbnial, ...rest }],
   posted = false,
 }) {
   return (
@@ -20,7 +21,7 @@ function MarkedDonwForm({
           layout="responsive"
         />
       </div>
-      {posted && <LikesController />}
+      {posted && <CardUserInfo data={rest} page="post" />}
       <h1>{title}</h1>
       <div className="content">
         <ReactMarkdown>{content || "# Hello, *world*!"}</ReactMarkdown>

@@ -1,11 +1,13 @@
 import { getSession } from "next-auth/react";
 import React from "react";
 import Layout from "../../components/layout/Layout";
+import BlogComponent from "../../components/page-components/blog/BlogComponent";
 import { protectPage } from "../../utils/authRedirect";
 function BlogPots(props) {
   return (
     <Layout title="Blogs Community">
       <h1>Blogs of All the community</h1>
+      <BlogComponent {...props} />
     </Layout>
   );
 }

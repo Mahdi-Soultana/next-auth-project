@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, css } from "styled-components";
 export const StyledGlobale = createGlobalStyle`
             :root {
   --toastify-color-light: #fff;
@@ -174,6 +174,10 @@ h1,h2,h3,h4,h5{
   text-transform:capitalize;
 }
 .marked-Down{
+  width:95%;
+  border-radius:.5em;
+  overflow:hidden;
+  position: relative;
   background-color:#fefefe;
   margin:2vw auto 2rem;
   padding-bottom:2rem;
@@ -190,8 +194,8 @@ h1,h2,h3,h4,h5{
   .img-container{
     width:100%;
     height:400px;
-  display:block;
-  overflow:hidden;
+      display:block;
+      overflow:hidden;
   img{
     height:100%;
     object-fit:cover;
@@ -226,6 +230,40 @@ h1,h2,h3,h4,h5{
     border-bottom:blue solid 2px;
   }
 }
+.image {
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: 120px;
+    border-radius: 0%;
+    span {
+      border-radius: 0%;
+      background-color: #3312c5;
+      &::after {
+        content: "";
+        border: 3px solid transparent;
+        top: 15%;
+        left: 5%;
+
+        width: 29px;
+        height: 29px;
+
+        ${(p) => {
+          if (p.load === "true") {
+            return css`
+              border-color: #3312c5 #3312c5 transparent #3312c5;
+            `;
+          } else {
+            return css`
+              border-color: transparent transparent transparent transparent;
+            `;
+          }
+        }}
+      }
+      img {
+        border-radius: 0%;
+      }
+    }
+  }
+
 
       `;
 

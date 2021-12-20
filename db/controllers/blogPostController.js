@@ -24,6 +24,7 @@ export async function deletePost(req, res) {
 }
 ///findPost
 export async function findPost(req, res) {
+  console.log(req.pramas.id, "heeeeeeeeee");
   try {
     const BlogPost = await BlogPostModel.findById(req.params.id);
     res.send({ success: "post found", post: BlogPost });

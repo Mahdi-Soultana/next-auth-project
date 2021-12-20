@@ -1,6 +1,6 @@
 import React from "react";
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FaHeart } from "react-icons/fa";
 export const ControllerLikesContainer = styled.aside`
   display: flex;
@@ -8,13 +8,32 @@ export const ControllerLikesContainer = styled.aside`
   align-items: center;
 
   div {
-    background-color: #f1f1f1;
-    padding: 2rem 4rem;
-    box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.2);
+    ${(p) => {
+      if (p.page == "post") {
+        return css`
+          padding: 2rem 4rem;
+          box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.2);
+          background-color: #f1f1f1;
+        `;
+      }
+    }}
+
     span {
       font-weight: 600;
+      ${(p) => {
+        if (p.page === "post") {
+          return css`
+            font-size: 1.6rem;
+            padding: 0.3rem;
+          `;
+        } else {
+          return css`
+            font-size: 1.4rem;
+            padding: 0rem;
+          `;
+        }
+      }}
       display: inline-block;
-      padding: 0.3rem;
     }
     svg {
       cursor: pointer;
@@ -22,9 +41,9 @@ export const ControllerLikesContainer = styled.aside`
     }
   }
 `;
-function LikesController(props) {
+function LikesController({ page = "blog" }) {
   return (
-    <ControllerLikesContainer>
+    <ControllerLikesContainer page={page}>
       <div>
         <FaHeart size="3rem" fill="white" stroke="red" />
         <span>23</span>

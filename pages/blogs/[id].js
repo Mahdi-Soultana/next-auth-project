@@ -4,7 +4,10 @@ import { protectPage } from "../../utils/authRedirect";
 import BlogPostModel from "../../db/model/BlogPosts";
 import { getSession } from "next-auth/react";
 import SingleBlog from "../../components/page-components/singleBlog/SingleBlog";
+import { useRouter } from "next/router";
 function About(props) {
+  console.log(props);
+
   return (
     <Layout title="Blog A">
       <SingleBlog blogState={props?.blogPost} />
@@ -22,7 +25,9 @@ export const getServerSideProps = async (context) => {
     };
   }
   let id = context.query.id;
-  const blogPost = await BlogPostModel.findById(id).lean();
+  const blogPost = await BlogPostModel.findById(id)
+    .populate("owner", "avatar likes email")
+    .lean();
 
   return {
     props: { session, blogPost: JSON.parse(JSON.stringify(blogPost)) },

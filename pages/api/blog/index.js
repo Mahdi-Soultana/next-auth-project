@@ -1,11 +1,11 @@
-import ncFn, { authenticated } from "../../utils/ncFn";
+import ncFn, { authenticated } from "../../../utils/ncFn";
 
-import { config } from "../../utils/cloudinary";
-import { appendUser } from "../../utils/appendReqUser";
+import { config } from "../../../utils/cloudinary";
+import { appendUser } from "../../../utils/appendReqUser";
 import {
   createPost,
   findPostsAll,
-} from "../../db/controllers/blogPostController";
+} from "../../../db/controllers/blogPostController";
 ncFn
   .use(appendUser)
   .get(findPostsAll)
