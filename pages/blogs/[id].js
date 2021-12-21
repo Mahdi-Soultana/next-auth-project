@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
 import { protectPage } from "../../utils/authRedirect";
 import BlogPostModel from "../../db/model/BlogPosts";
 import { getSession } from "next-auth/react";
 import SingleBlog from "../../components/page-components/singleBlog/SingleBlog";
-import { useRouter } from "next/router";
-function About(props) {
-  console.log(props);
+
+import { toast } from "react-toastify";
+
+function PostSingle(props) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getSession().then((session) => {
+      if (!session) {
+        setLoading(false);
+        toast.error("soory you're not authenticateed usser");
+        console.log(session);
+      } else {
+        toast.success("Good article to read", {
+          icon: "👌",
+        });
+
+        console.log(session);
+      }
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <Layout title="Blog A">
@@ -33,4 +52,4 @@ export const getServerSideProps = async (context) => {
     props: { session, blogPost: JSON.parse(JSON.stringify(blogPost)) },
   };
 };
-export default About;
+export default PostSingle;

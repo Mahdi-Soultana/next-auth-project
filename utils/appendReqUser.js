@@ -17,3 +17,13 @@ export async function appendUser(req, res, next) {
   req.user = user;
   next();
 }
+
+const fetchAppendReq = async (url = "/api/blog", method = "GET") => {
+  const blogPosts = await fetch(`${process.env.NEXTAUTH_URL}${url}`, {
+    method,
+    headers: {
+      session: JSON.stringify(session),
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json());
+};

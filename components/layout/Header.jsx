@@ -6,11 +6,18 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
 import { NavStyled } from "./NavStyled";
+import { useUserContext } from "../../hooks/userProvider";
 
 function Header() {
   const router = useRouter();
   const { data: res } = useSession();
+  const { addUser } = useUserContext();
 
+  React.useEffect(() => {
+    if (res) {
+      addUser(res.user);
+    }
+  }, []);
   return (
     <NavStyled>
       <h1>

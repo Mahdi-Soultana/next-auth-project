@@ -1,9 +1,15 @@
-import { useRouter } from "next/router";
 import React from "react";
 import MarkedDonwForm from "../createBlog/MarkedDonwForm";
-
+// import { getSession } from "next-auth/react";
 function SingleBlog(props) {
-  return <MarkedDonwForm blogState={[props?.blogState]} posted={true} />;
+  let loggedin;
+  if (typeof window !== undefined) {
+    loggedin = true;
+  }
+
+  return (
+    loggedin && <MarkedDonwForm blogState={[props?.blogState]} posted={true} />
+  );
 }
 
 export default SingleBlog;

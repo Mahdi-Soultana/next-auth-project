@@ -5,7 +5,8 @@ import { appendUser } from "../../../utils/appendReqUser";
 import {
   createPost,
   findPost,
+  updatePost,
 } from "../../../db/controllers/blogPostController";
-ncFn.use(appendUser).get(findPost);
+ncFn.get(findPost).put(updatePost);
 
 export default ncFn;

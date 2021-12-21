@@ -8,8 +8,18 @@ export const InfoUserCard = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  ${(p) => {
+    if (p.page === "post") {
+      return css`
+        justify-content: space-between;
+      `;
+    } else {
+      return css`
+        justify-content: space-around;
+      `;
+    }
+  }}
   .info {
-    order: 1;
     /* min-width: 100px; */
     display: grid;
     justify-content: space-around;
@@ -17,8 +27,22 @@ export const InfoUserCard = styled.div`
     grid-template-columns: 60px 1fr;
     grid-template-rows: 1fr;
     text-align: left;
+
     gap: 1rem;
     padding: 1rem;
+    ${(p) => {
+      if (p.page === "post") {
+        return css`
+          order: 1;
+          grid-template-columns: min-content 1fr;
+        `;
+      } else {
+        return css`
+          order: 0;
+          grid-template-columns: 60px 1fr;
+        `;
+      }
+    }}
     h3 {
       magrin-bottom: 1rem;
     }
@@ -42,7 +66,7 @@ export const InfoUserCard = styled.div`
             height: 120px;
             border-radius: 50%;
             padding: 0.4rem;
-            background-color: #d80c50;
+            background-color: #1730a0;
           `;
         } else {
           return css`
@@ -87,7 +111,7 @@ function CardUserInfo({ data, page = "blog" }) {
             </h5>
           </div>
         </div>
-        <LikesController />
+        <LikesController page={page} data={data._id} />
       </InfoUserCard>
     )
   );

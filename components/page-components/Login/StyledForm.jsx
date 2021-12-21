@@ -1,6 +1,11 @@
 import styled, { css } from "styled-components";
 import { StyledLogin } from "./styledLoginForm";
-export const FormStyledC = styled(StyledLogin)`
+
+const NewCom = ({ children, ...rest }) => (
+  <StyledLogin {...rest}>{children}</StyledLogin>
+);
+
+export const FormStyledC = styled(NewCom)`
   text-align: center;
   .actions {
     display: flex;
@@ -48,6 +53,7 @@ export const FormStyledC = styled(StyledLogin)`
       display: inline-block;
       border-bottom: 4px #3312c5 solid;
     }
+
     margin: auto;
     display: block;
     width: 90%;
@@ -61,6 +67,39 @@ export const FormStyledC = styled(StyledLogin)`
       border: 2px #333 solid;
       border-radius: 0.3em;
       width: 100%;
+    }
+  }
+  &.image {
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: 120px;
+    border-radius: 0%;
+    span {
+      border-radius: 0%;
+      background-color: #3312c5;
+      &::after {
+        content: "";
+        border: 3px solid transparent;
+        top: 15%;
+        left: 5%;
+
+        width: 29px;
+        height: 29px;
+
+        ${(p) => {
+          if (p.load === "true") {
+            return css`
+              border-color: #3312c5 #3312c5 transparent #3312c5;
+            `;
+          } else {
+            return css`
+              border-color: transparent transparent transparent transparent;
+            `;
+          }
+        }}
+      }
+      img {
+        border-radius: 0%;
+      }
     }
   }
   button {

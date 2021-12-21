@@ -134,6 +134,14 @@ text-transform: capitalize;
 color: #030303;
 button{
   box-shadow: none;
+  width:auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:.4rem;
+  border-radius:.2rem;
+  background-color:#d10000;
+
 }
 }
 
@@ -230,39 +238,7 @@ h1,h2,h3,h4,h5{
     border-bottom:blue solid 2px;
   }
 }
-.image {
-    grid-template-columns: 220px 1fr;
-    grid-template-rows: 120px;
-    border-radius: 0%;
-    span {
-      border-radius: 0%;
-      background-color: #3312c5;
-      &::after {
-        content: "";
-        border: 3px solid transparent;
-        top: 15%;
-        left: 5%;
 
-        width: 29px;
-        height: 29px;
-
-        ${(p) => {
-          if (p.load === "true") {
-            return css`
-              border-color: #3312c5 #3312c5 transparent #3312c5;
-            `;
-          } else {
-            return css`
-              border-color: transparent transparent transparent transparent;
-            `;
-          }
-        }}
-      }
-      img {
-        border-radius: 0%;
-      }
-    }
-  }
 
 
       `;

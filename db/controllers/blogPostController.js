@@ -4,6 +4,7 @@ import BlogPostModel from "../model/BlogPosts";
 export async function createPost(req, res) {
   try {
     const { title, content } = req.body;
+    console.log({ title, content });
     const BlogPost = await BlogPostModel.create({
       title,
       content,
@@ -34,11 +35,7 @@ export async function findPost(req, res) {
 }
 ///Updated Post
 export async function updatePost(req, res) {
-  const BlogPost = await BlogPostModel.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true },
-  );
+  const BlogPost = await BlogPostModel.findById(req.query.id);
 
   res.send({ success: "post Updated", post: BlogPost });
 }
