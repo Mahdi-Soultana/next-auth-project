@@ -1,4 +1,5 @@
 import BlogPostModel from "../model/BlogPosts";
+import CommentsModel from "../model/Comments";
 
 ///createPost
 export async function createPost(req, res) {
@@ -38,32 +39,63 @@ export async function findPost(req, res) {
 }
 ///Updated Post
 export async function updatePost(req, res) {
-  if (req.body.type === "add_like") {
-    const blogPost = await BlogPostModel.findByIdAndUpdate(
-      req.query.id,
+  switch (req.body.type) {
+    case "add_like":
       {
-        $addToSet: {
-          likes: req.user,
-        },
-      },
-      { new: true },
-    );
-    res.send({ success: "your like added", post: blogPost, status: "add" });
-  } else if (req.body.type === "remove_like") {
-    const blogPost = await BlogPostModel.findByIdAndUpdate(
-      req.query.id,
+        const blogPost = await BlogPostModel.findByIdAndUpdate(
+          req.query.id,
+          {
+            $addToSet: {
+              likes: req.user,
+            },
+          },
+          { new: true },
+        );
+        res.send({ success: "your like added", post: blogPost, status: "add" });
+      }
+      break;
+    case "remove_like":
       {
-        $pull: {
-          likes: req.user.id,
-        },
-      },
-      { new: true },
-    );
-    res.send({
-      success: "your like removed",
-      post: blogPost,
-      status: "remove",
-    });
+        const blogPost = await BlogPostModel.findByIdAndUpdate(
+          req.query.id,
+          {
+            $pull: {
+              likes: req.user.id,
+            },
+          },
+          { new: true },
+        );
+        res.send({
+          success: "your like removed",
+          post: blogPost,
+          status: "remove",
+        });
+      }
+      break;
+    case "add_comment": {
+      try {
+        const { comment } = req.body;
+
+        // console.log({ title, content });
+        const Comment = await CommentsModel.create({
+          comment,
+          owner: req.user,
+        });
+        const blogPost = await BlogPostModel.findByIdAndUpdate(req.query.id, {
+          $push: {
+            comment: Comment,
+          },
+        });
+
+        res.send({ success: "comment Added Created", comment: Comment });
+      } catch (e) {
+        throw new Error(e.message);
+      }
+    }
+    default:
+      res.send({
+        error: "no_type action specify",
+      });
   }
 }
 ///findPostsMe

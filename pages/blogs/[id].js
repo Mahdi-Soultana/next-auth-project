@@ -16,9 +16,9 @@ function PostSingle(props) {
 export async function getServerSideProps(context) {
   try {
     await connectDB();
-
+    // To Continue
     let blogPost = await BlogPostModel.findById(context.params.id).populate(
-      "owner",
+      "owner comment",
       "avatar email",
     );
     if (!blogPost) {

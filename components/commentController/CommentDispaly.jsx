@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CommentItem from "./CommentItem";
 import { CommentListStyles } from "./CommentStyles";
-function CommentFn({ comments }) {
+function CommentDispaly({ comments }) {
   const [show, setShow] = useState(false);
   return (
     <>
@@ -21,4 +21,4 @@ function CommentFn({ comments }) {
   );
 }
 
-export default CommentFn;
+export default CommentDispaly;

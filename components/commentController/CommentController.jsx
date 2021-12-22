@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CommentFn from "./CommentFn";
+import CommentDispaly from "./CommentDispaly";
 
 import CommentForm from "./CommentForm";
 
@@ -7,12 +7,16 @@ import { CommentStyled, CommentListStyles } from "./CommentStyles";
 
 function CommentController({ data }) {
   console.log(data);
-  const comments = [];
+
+  const [comments, setComment] = useState(() => data.comment);
+  function addComment(comment) {
+    setComment((prevC) => [...comments, comment]);
+  }
   return (
     <CommentStyled>
-      <CommentForm />
+      <CommentForm id={data._id} addComment={addComment} />
       <hr></hr>
-      <CommentFn comments={comments} />
+      <CommentDispaly comments={comments} />
     </CommentStyled>
   );
 }
