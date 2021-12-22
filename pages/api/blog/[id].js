@@ -1,12 +1,10 @@
 import ncFn, { authenticated } from "../../../utils/ncFn";
 
-import { config } from "../../../utils/cloudinary";
-import { appendUser } from "../../../utils/appendReqUser";
 import {
   createPost,
   findPost,
   updatePost,
 } from "../../../db/controllers/blogPostController";
-ncFn.get(findPost).put(updatePost);
+ncFn.get(findPost).use(authenticated).put(updatePost);
 
 export default ncFn;

@@ -7,6 +7,7 @@ import FacebookProvider from "next-auth/providers/facebook";
 import InstagramProvider from "next-auth/providers/instagram";
 import User from "../../../db/model/User";
 import connectDb from "../../../db/connectDb";
+import UserModel from "../../../db/model/User";
 export default NextAuth({
   session: {
     jwt: true,
@@ -44,7 +45,6 @@ export default NextAuth({
         if (user.password.toString() !== credentials.password.toString()) {
           throw new Error("wrong password !");
         }
-        req.user = user;
         let {
           email,
           avatar: { url: image },
@@ -56,12 +56,18 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       token.any_property = "ANY_PROPERTY in [...nextauth] callbacks jwt !!  ";
-
+      try {
+        const user = await UserModel.findOne({ email: token.email });
+        token.userId = user.id;
+      } catch (e) {
+        token.userId = null;
+      }
       return token;
     },
     async session({ session, token }) {
       // Send properties to the client, like an access_token from a provider.
       session.any_property = token.any_property;
+      session.user.id = token.userId;
       session.user.token = token.jti;
       return session;
     },

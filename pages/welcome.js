@@ -6,7 +6,7 @@ import { protectPage } from "../utils/authRedirect";
 
 function welcom() {
   const { data: session, status } = useSession();
-
+  console.log(session);
   return (
     <Layout title="Welcom in My Home">
       <WelcomHome />

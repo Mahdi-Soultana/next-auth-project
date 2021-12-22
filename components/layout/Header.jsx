@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import styled from "styled-components";
 import Link from "next/link";
@@ -10,14 +10,14 @@ import { useUserContext } from "../../hooks/userProvider";
 
 function Header() {
   const router = useRouter();
-  const { data: res } = useSession();
+  let { data: res } = useSession();
   const { addUser } = useUserContext();
-
+  res = useMemo(() => res, [res]);
   React.useEffect(() => {
     if (res) {
       addUser(res.user);
     }
-  }, []);
+  }, [res]);
   return (
     <NavStyled>
       <h1>

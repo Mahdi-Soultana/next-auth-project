@@ -12,29 +12,22 @@ function BlogPots(props) {
   );
 }
 export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-  if (!session) {
+  try {
+    const blogPosts = await fetch(`${process.env.NEXTAUTH_URL}/api/blog`).then(
+      (res) => res.json(),
+    );
+    return {
+      props: {
+        blogPosts,
+      },
+    };
+  } catch (e) {
     return {
       redirect: {
-        destination: "/login",
+        destination: "/404",
         permanent: false,
       },
     };
   }
-
-  const blogPosts = await fetch(`${process.env.NEXTAUTH_URL}/api/blog`, {
-    method: "GET",
-    headers: {
-      session: JSON.stringify(session),
-      "Content-Type": "application/json",
-    },
-  }).then((res) => res.json());
-
-  return {
-    props: {
-      blogPosts,
-      session,
-    },
-  };
 };
 export default BlogPots;

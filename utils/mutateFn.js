@@ -1,17 +1,11 @@
 import { toast } from "react-toastify";
 
-export async function postMethod(
-  data,
-  url = "/api/blog",
-  method = "POST",
-  session,
-) {
+export async function postMethod(data, url = "/api/blog", method = "POST") {
   try {
     const res = await fetch(url, {
       method,
       headers: {
         "Content-Type": "application/json",
-        session: JSON.stringify(session),
       },
       body: JSON.stringify(data),
     }).then((res) => {
@@ -23,7 +17,7 @@ export async function postMethod(
     }
     return res;
   } catch (e) {
-    toast.error("error while creating !");
+    toast.error(e.message);
     throw new Error(e);
   }
 }

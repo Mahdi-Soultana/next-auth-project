@@ -34,9 +34,9 @@ async function dbConnect() {
       return mongoose;
     });
   }
-  console.log("awaiting connected to DB !!");
+
   cached.conn = await cached.promise;
-  console.log("success connected to DB !!");
+
   return cached.conn;
 }
 

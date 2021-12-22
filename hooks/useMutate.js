@@ -1,36 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { toast } from "react-toastify";
 import { useMutation } from "react-query";
 import { postMethod } from "../utils/mutateFn";
 import { getSession } from "next-auth/react";
-function useMutate(url, method) {
-  const [session, setSession] = useState(null);
-  const [response, setResponse] = useState(null);
-  useEffect(() => {
-    getSession().then((session) => {
-      if (!session) {
-        toast.error("soory you're not authenticateed usser");
-      } else {
-        setSession(session);
-      }
-    });
-  }, []);
+function useMutate(
+  url,
+  method,
+  { pending, success, error } = {
+    pending: "we are requesting ⏳",
+    success: "your action successed ✨",
+    error: "Something went wrong 🤯",
+  },
+) {
+  let [response, setResponse] = useState(null);
 
   const { mutate, isLoading, isSuccess, isError } = useMutation(
     (data) =>
-      toast.promise(async () => await postMethod(data, url, method, session), {
-        pending: "Fetching data",
-        success: "response back",
-        error: "Something went wrong 🤯",
+      toast.promise(async () => await postMethod(data, url, method), {
+        pending,
+        success,
+        error,
       }),
 
     {
       onSuccess: (data) => {
-        if (data?.success) {
-          toast.success(data.success, {
-            icon: "🚀",
-          });
-        }
         setResponse(data);
       },
       onError: (e) => {
@@ -38,6 +31,10 @@ function useMutate(url, method) {
       },
     },
   );
+  response = useMemo(() => {
+    return response;
+  }, [response]);
+
   return { response, isLoading, isError, mutate };
 }
 

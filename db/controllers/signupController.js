@@ -2,9 +2,8 @@ import User from "../model/User";
 import { config } from "../../utils/cloudinary";
 
 async function signupController(req, res) {
-  let result;
   if (req.body.avatar) {
-    result = config(req.body.avatar)
+    config(req.body.avatar)
       .then(async (result) => {
         const { email, password } = req.body;
         const user = await User.create({
@@ -16,20 +15,23 @@ async function signupController(req, res) {
           },
         });
 
-        res.json(user);
+        res.json({ success: "user created ", user });
       })
       .catch((e) => {
-        console.log(e);
-        throw new Error(e);
+        res.json({ error: "try diffrent email or password" });
       });
   } else {
-    const { email, password } = req.body;
-    const user = await User.create({
-      email,
-      password,
-    });
+    try {
+      const { email, password } = req.body;
+      const user = await User.create({
+        email,
+        password,
+      });
 
-    res.json(user);
+      res.json({ success: "user created ", user });
+    } catch (e) {
+      res.json({ error: e.message });
+    }
   }
 }
 

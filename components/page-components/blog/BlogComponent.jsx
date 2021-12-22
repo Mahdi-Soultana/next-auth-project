@@ -3,7 +3,6 @@ import CardComponent from "../../styledComponents/Card";
 import { ListStyled } from "../../styledComponents/ListStyled";
 
 function BlogComponent(props) {
-  console.log(props);
   const { blogPosts } = props;
   return (
     <ListStyled>

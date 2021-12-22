@@ -4,7 +4,7 @@ import BlogPostModel from "../model/BlogPosts";
 export async function createPost(req, res) {
   try {
     const { title, content } = req.body;
-    console.log({ title, content });
+    // console.log({ title, content });
     const BlogPost = await BlogPostModel.create({
       title,
       content,
@@ -25,9 +25,13 @@ export async function deletePost(req, res) {
 }
 ///findPost
 export async function findPost(req, res) {
-  console.log(req.pramas.id, "heeeeeeeeee");
+  console.log(req.query.id, "heeeeeeeeee");
+  const { id } = req.query;
   try {
-    const BlogPost = await BlogPostModel.findById(req.params.id);
+    const BlogPost = await BlogPostModel.findById(id).populate(
+      "owner",
+      "avatar email",
+    );
     res.send({ success: "post found", post: BlogPost });
   } catch (e) {
     throw new Error(e.message);
@@ -35,9 +39,33 @@ export async function findPost(req, res) {
 }
 ///Updated Post
 export async function updatePost(req, res) {
-  const BlogPost = await BlogPostModel.findById(req.query.id);
-
-  res.send({ success: "post Updated", post: BlogPost });
+  if (req.body.type === "add_like") {
+    const blogPost = await BlogPostModel.findByIdAndUpdate(
+      req.query.id,
+      {
+        $addToSet: {
+          likes: req.user,
+        },
+      },
+      { new: true },
+    );
+    res.send({ success: "your like added", post: blogPost, status: "add" });
+  } else if (req.body.type === "remove_like") {
+    const blogPost = await BlogPostModel.findByIdAndUpdate(
+      req.query.id,
+      {
+        $pull: {
+          likes: req.user.id,
+        },
+      },
+      { new: true },
+    );
+    res.send({
+      success: "your like removed",
+      post: blogPost,
+      status: "remove",
+    });
+  }
 }
 ///findPostsMe
 export async function findPostsMe(req, res) {

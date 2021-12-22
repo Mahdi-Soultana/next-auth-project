@@ -8,7 +8,9 @@ function SingleBlog(props) {
   }
 
   return (
-    loggedin && <MarkedDonwForm blogState={[props?.blogState]} posted={true} />
+    loggedin && (
+      <MarkedDonwForm blogState={[props?.blogState.post]} posted={true} />
+    )
   );
 }
 

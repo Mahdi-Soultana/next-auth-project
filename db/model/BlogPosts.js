@@ -31,6 +31,6 @@ blogPostSchema.method.addLike = function (user) {
 };
 
 const blogPostModel =
-  mongoose.models.blogPost || mongoose.model("blogPost", blogPostSchema);
+  mongoose.model("blogPost") || mongoose.model("blogPost", blogPostSchema);
 
 export default blogPostModel;

@@ -111,7 +111,7 @@ function CardUserInfo({ data, page = "blog" }) {
             </h5>
           </div>
         </div>
-        <LikesController page={page} data={data._id} />
+        <LikesController page={page} data={data} />
       </InfoUserCard>
     )
   );

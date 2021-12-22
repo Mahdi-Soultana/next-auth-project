@@ -7,7 +7,7 @@ import { StyledLogin } from "./StyledLoginForm";
 import getFile from "../../../utils/getFile";
 import { transform } from "framer-motion";
 import SignInBTN from "./Btns/SignInBTN";
-
+import useMutate from "../../../hooks/useMutate";
 const initUser = {
   password: "",
   email: "",
@@ -21,52 +21,32 @@ function Login() {
   const [load, setLoad] = useState("false");
   const [isValid, setIsVlaid] = useState("false");
   const [loading, setLoading] = useState("false");
+  const { mutate, response, isLoading } = useMutate("/api/auth/signup");
   let formReady = !!user.email.trim() && !!user.password;
-
+  const newuser = response?.user;
+  if (newuser) {
+    (async function () {
+      const res = await signIn("credentials", {
+        redirect: false,
+        ...newuser,
+      });
+      toast.success("Well Done !", {
+        icon: "🚀",
+      });
+      router.push("/welcome");
+    })();
+  } else {
+    console.log("mutaute");
+  }
   const handelSwitch = () => {
     setSwitcher((prevS) => !prevS);
     setUser(initUser);
   };
   async function handelSubmit(e) {
     e.preventDefault();
-    setLoading("true");
-
-    let toastlLoading;
 
     if (switcher) {
-      try {
-        toastlLoading = toast.loading("we're creating your account ! 😇");
-        const newuser = await fetch("/api/auth/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(user),
-        }).then((res) => {
-          console.log(res);
-          if (!res.ok) {
-            toast.error("try again ", {
-              icon: "🤯",
-            });
-            toast.dismiss(toastlLoading);
-            setLoading("false");
-          }
-          return res.json();
-        });
-
-        const res = await signIn("credentials", {
-          redirect: false,
-          ...newuser,
-        });
-        toast.success("Well Done !", {
-          icon: "🚀",
-        });
-        router.push("/welcome");
-      } catch (e) {
-        setLoading("false");
-        toast.dismiss(toastlLoading);
-      }
-      toast.dismiss(toastlLoading);
+      await mutate(user);
     } else {
       const res = await signIn("credentials", {
         redirect: false,
@@ -84,8 +64,6 @@ function Login() {
         });
       }
     }
-
-    setLoading("false");
   }
   async function handelOnChange(e) {
     if (e.target.name === "avatar") {
@@ -126,7 +104,8 @@ function Login() {
       }));
     }
   }
-  const loadingConst = load === "true" || loading === "true" ? "true" : "false";
+  const loadingConst =
+    load === "true" || isLoading == "true" ? "true" : "false";
   return (
     <StyledLogin onSubmit={handelSubmit} load={loadingConst} autoComplete="off">
       <h1> {switcher ? "SignUp Now" : "Login Now"}</h1>

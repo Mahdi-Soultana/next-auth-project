@@ -6,7 +6,7 @@ const user = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
+    unique: [true, "this email is aleardy used !"],
   },
   password: {
     type: String,
@@ -29,6 +29,11 @@ const user = new Schema({
 user.virtual("id").get(function () {
   return this._id.toHexString();
 });
+user.pre("remove", function (next) {
+  const BlogPost = mongoose.model("blogPost");
+  // this === joe
 
+  BlogPost.remove({ _id: { $in: this.blogs } }).then(() => next());
+});
 user.set("toJson", { virtual: true });
-export default mongoose.models.user || mongoose.model("user", user);
+export default mongoose.model("user") || mongoose.model("user", user);

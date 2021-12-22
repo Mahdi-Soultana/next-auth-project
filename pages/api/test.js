@@ -1,6 +1,8 @@
-import ncFn, { authenticated } from "../../utils/ncFn";
+import ncFn, { authenticated, connectDB } from "../../utils/ncFn";
 
 ncFn
+  .use(authenticated)
+  .use(connectDB)
   .get((req, res) => {
     res.json({ res: "test api working !!" });
   })

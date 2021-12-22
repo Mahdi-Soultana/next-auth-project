@@ -1,13 +1,11 @@
-import ncFn, { authenticated } from "../../../utils/ncFn";
+import ncFn, { authenticated, connectDB } from "../../../utils/ncFn";
 
 import { config } from "../../../utils/cloudinary";
-import { appendUser } from "../../../utils/appendReqUser";
 import {
   createPost,
   findPostsAll,
 } from "../../../db/controllers/blogPostController";
 ncFn
-  .use(appendUser)
   .get(findPostsAll)
   .use(async (req, res, next) => {
     const thumb = req.body.thumbnial;
@@ -24,6 +22,7 @@ ncFn
       throw new Error("please upload your thumbnial");
     }
   })
+  .use(authenticated)
   .post(createPost);
 
 export default ncFn;

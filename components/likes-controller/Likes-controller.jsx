@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { FaHeart } from "react-icons/fa";
 import { useUserContext } from "../../hooks/userProvider";
@@ -14,7 +14,6 @@ export const ControllerLikesContainer = styled.aside`
       if (p.page == "post") {
         return css`
           padding: 2rem 4rem;
-
           background-color: #eff0ff;
         `;
       }
@@ -41,27 +40,58 @@ export const ControllerLikesContainer = styled.aside`
     svg {
       cursor: pointer;
       filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.5));
+      cursor: ${(p) => (p.isLoading === "true" ? "not-allowed" : "pointer")};
     }
   }
 `;
-function LikesController({ page = "blog", data: postId }) {
-  const { mutate, response } = useMutate("/api/blog/" + postId, "PUT");
+function LikesController({ page = "blog", data }) {
+  const [isLiked, setIsLiked] = useState(false);
+  const { mutate, response, isLoading } = useMutate(
+    "/api/blog/" + data._id,
+    "PUT",
+    {
+      pending: "your action in progress",
+      error: "🥵 something wrong try again",
+      success: isLiked ? "🤔 you unliked the post " : "❤️ you like the post",
+    },
+  );
+
+  const [likesLength, setLikesLength] = useState(() => data.likes?.length);
+
+  useEffect(() => {
+    if (response?.status === "add") {
+      setIsLiked(true);
+      setLikesLength((prev) => prev + 1);
+    } else if (response?.status === "remove") {
+      setIsLiked(false);
+      setLikesLength((prev) => prev - 1);
+    }
+  }, [response]);
 
   const {
-    user: { email },
+    user: { email, id },
   } = useUserContext();
+
+  useEffect(() => {
+    console.log(data);
+    console.log(email);
+    if (data.likes.includes(id)) {
+      setIsLiked(true);
+    }
+  }, []);
   return (
-    <ControllerLikesContainer page={page}>
+    <ControllerLikesContainer page={page} isLoading={isLoading.toString()}>
       <div
         onClick={() => {
           mutate({
-            postId,
+            type: isLiked ? "remove_like" : "add_like",
+            postId: data._id,
             email,
           });
         }}
       >
-        <FaHeart size="3rem" fill="white" stroke="red" />
-        <span>23</span>
+        <FaHeart size="3rem" fill={isLiked ? "red" : "white"} stroke="red" />
+        <span>{likesLength}</span>
       </div>
     </ControllerLikesContainer>
   );

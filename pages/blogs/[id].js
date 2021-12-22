@@ -8,48 +8,23 @@ import SingleBlog from "../../components/page-components/singleBlog/SingleBlog";
 import { toast } from "react-toastify";
 
 function PostSingle(props) {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getSession().then((session) => {
-      if (!session) {
-        setLoading(false);
-        toast.error("soory you're not authenticateed usser");
-        console.log(session);
-      } else {
-        toast.success("Good article to read", {
-          icon: "👌",
-        });
-
-        console.log(session);
-      }
-      setLoading(false);
-    });
-  }, []);
-
+  console.log(props);
   return (
     <Layout title="Blog A">
-      <SingleBlog blogState={props?.blogPost} />
+      {" "}
+      <SingleBlog blogState={props?.blogPost} />{" "}
     </Layout>
   );
 }
-export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-  let id = context.query.id;
-  const blogPost = await BlogPostModel.findById(id)
-    .populate("owner", "avatar likes email")
-    .lean();
+export async function getServerSideProps(context) {
+  const blogPost = await fetch(
+    process.env.NEXTAUTH_URL + "/api/blog/" + context.params.id,
+  )
+    .then((res) => res.json())
+    .catch((e) => console.log(e));
 
   return {
-    props: { session, blogPost: JSON.parse(JSON.stringify(blogPost)) },
+    props: { blogPost: JSON.parse(JSON.stringify(blogPost)) },
   };
-};
+}
 export default PostSingle;
