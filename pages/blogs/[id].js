@@ -1,13 +1,9 @@
-import BlogPosts from "../../db/model/BlogPosts";
+import BlogPostModel from "../../db/model/BlogPosts";
 import connectDB from "../../db/connectDb";
-import { findPost } from "../../db/controllers/blogPostController";
-import React, { useEffect, useState } from "react";
+
 import Layout from "../../components/layout/Layout";
-import { protectPage } from "../../utils/authRedirect";
 
 import SingleBlog from "../../components/page-components/singleBlog/SingleBlog";
-
-import { toast } from "react-toastify";
 
 function PostSingle(props) {
   return (
@@ -18,11 +14,27 @@ function PostSingle(props) {
   );
 }
 export async function getServerSideProps(context) {
-  await connectDB();
-  const blogPost = await findPost(context.req, context.res);
+  try {
+    await connectDB();
 
-  return {
-    props: { blogPost: JSON.parse(JSON.stringify(blogPost)) },
-  };
+    let blogPost = await BlogPostModel.findById(context.params.id).populate(
+      "owner",
+      "avatar email",
+    );
+    if (!blogPost) {
+      return {
+        notFound: true,
+      };
+    }
+    blogPost = JSON.parse(JSON.stringify(blogPost));
+    const res = { success: "post found", post: blogPost };
+    return {
+      props: { blogPost: { ...res } },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 }
 export default PostSingle;

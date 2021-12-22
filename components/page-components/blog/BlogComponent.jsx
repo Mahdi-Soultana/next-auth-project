@@ -4,12 +4,16 @@ import { ListStyled } from "../../styledComponents/ListStyled";
 
 function BlogComponent(props) {
   const { blogPosts } = props;
+  console.log(blogPosts);
   return (
-    <ListStyled>
-      {blogPosts.posts.map((post) => (
-        <CardComponent data={post} key={post._id} />
-      ))}
-    </ListStyled>
+    (blogPosts && (
+      <ListStyled>
+        {blogPosts.posts.map((post) => (
+          <CardComponent data={post} key={post._id} />
+        ))}
+      </ListStyled>
+    )) ||
+    "hey"
   );
 }
 

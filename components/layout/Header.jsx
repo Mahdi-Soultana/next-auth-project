@@ -12,13 +12,14 @@ import { useUserContext } from "../../hooks/userProvider";
 function Header() {
   const router = useRouter();
   let { data: res } = useSession();
-  const { addUser } = useUserContext();
+  const { addUser, user } = useUserContext();
+
   res = useMemo(() => res, [res]);
   React.useEffect(() => {
     if (res) {
       addUser(res.user);
     }
-  }, [res, addUser]);
+  }, [res]);
   return (
     <NavStyled>
       <h1>
@@ -26,7 +27,7 @@ function Header() {
       </h1>
 
       <ul>
-        {res && (
+        {res?.user && (
           <>
             {" "}
             <li>
@@ -54,7 +55,7 @@ function Header() {
       </ul>
 
       <ul>
-        {res ? (
+        {res?.user ? (
           <>
             <div title={res.user.name} className="avatar">
               <Image
@@ -73,6 +74,7 @@ function Header() {
                 });
 
                 router.replace(res.url);
+                addUser(null);
               }}
             >
               Logout

@@ -87,7 +87,7 @@ function Form({ blogState }) {
             <Image
               src={
                 blog.thumbnial ||
-                "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
+                "https://res.cloudinary.com/soultana-mahdi/image/upload/v1640166700/bkwztmzflpfmfmeqvtun.jpg"
               }
               alt="user"
               width={100}

@@ -15,6 +15,12 @@ export const Card = styled(motion.article)`
   box-shadow: 0 -5px 15px -10px #333, 0 1px 10px -10px #333;
   overflow: hidden;
   padding-bottom: 1rem;
+  .card-img {
+    div {
+      width: 100%;
+      height: 100%;
+    }
+  }
   img {
     cursor: pointer;
     padding-bottom: 1rem;

@@ -44,17 +44,13 @@ export const ControllerLikesContainer = styled.aside`
     }
   }
 `;
-function LikesController({ page = "blog", data }) {
+function LikesController({ page = "blog", data, baseUrl = "/api/blog/" }) {
   const [isLiked, setIsLiked] = useState(false);
-  const { mutate, response, isLoading } = useMutate(
-    "/api/blog/" + data._id,
-    "PUT",
-    {
-      pending: "your action in progress",
-      error: "🥵 something wrong try again",
-      success: isLiked ? "🤔 you unliked the post " : "❤️ you like the post",
-    },
-  );
+  const { mutate, response, isLoading } = useMutate(baseUrl + data._id, "PUT", {
+    pending: "your action in progress",
+    error: "🥵 something wrong try again",
+    success: isLiked ? "🤔 you unliked the post " : "❤️ you like the post",
+  });
 
   const [likesLength, setLikesLength] = useState(() => data.likes?.length);
 

@@ -204,6 +204,10 @@ h1,h2,h3,h4,h5{
     height:400px;
       display:block;
       overflow:hidden;
+      div {
+        width: 100%;
+        height: 100%;
+      }
   img{
     height:100%;
     object-fit:cover;
@@ -223,11 +227,13 @@ h1,h2,h3,h4,h5{
   }
 
   code{
-    background-color:#3724a5;;
+    background-color:#002b47;
     display:block;
-    padding:1rem;
+ line-height:1.5;
+    padding:2rem  ;
     text-shadow:0px 0px 5px rgba(0,0,0,.5);
-    border-radius:.1em;
+    border-radius:.4em;
+    box-shadow:0px 0px 5px rgba(0,0,0,.5);
     color:#f1f1f1;
     font-family: 'M PLUS Code Latin', sans-serif;
 

@@ -32,6 +32,12 @@ export const InfoUserCard = styled.div`
     padding: 1rem;
     ${(p) => {
       if (p.page === "post") {
+        if (p.comment === "true") {
+          return css`
+            order: 1;
+            grid-template-columns: 1fr;
+          `;
+        }
         return css`
           order: 1;
           grid-template-columns: min-content 1fr;
@@ -92,23 +98,29 @@ export const InfoUserCard = styled.div`
     }
   }
 `;
-function CardUserInfo({ data, page = "blog" }) {
+function CardUserInfo({ data, page = "blog", comment = false }) {
   const [mount, setMount] = useState(false);
   useEffect(() => {
     setMount(true);
   }, []);
   return (
     mount && (
-      <InfoUserCard page={page} img={data.owner?.avatar.url}>
+      <InfoUserCard
+        page={page}
+        img={data.owner?.avatar.url}
+        comment={comment ? "true" : "false"}
+      >
         <div className="info">
           <div className="img-container">
             <div></div>
           </div>
           <div className="owner">
             <motion.h3>{data.owner?.email}</motion.h3>
-            <h5>
-              created At:<span>2020/23/01</span>
-            </h5>
+            {!comment && (
+              <h5>
+                created At:<span>2020/23/01</span>
+              </h5>
+            )}
           </div>
         </div>
         <LikesController page={page} data={data} />

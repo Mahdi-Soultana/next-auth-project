@@ -10,7 +10,6 @@ function MarkedDonwForm({ blogState, posted = false }) {
   }
 
   if (client) {
-    console.log(blogState);
     var [{ content, title, thumbnial, ...rest }] = blogState;
   }
 

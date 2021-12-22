@@ -11,7 +11,8 @@ function CreateBlogContainer({ selectedState, sendData }) {
   const blogState = useState({
     content: "",
     title: "",
-    thumbnial: "",
+    thumbnial:
+      "https://res.cloudinary.com/soultana-mahdi/image/upload/v1640166700/bkwztmzflpfmfmeqvtun.jpg",
   });
   const handelSubmit = (e) => {
     e.preventDefault();

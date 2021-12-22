@@ -1,6 +1,5 @@
-import BlogPosts from "../../db/model/BlogPosts";
+import BlogPostModel from "../../db/model/BlogPosts";
 import connectDB from "../../db/connectDb";
-import { findPostsAll } from "../../db/controllers/blogPostController";
 
 import React from "react";
 import Layout from "../../components/layout/Layout";
@@ -17,10 +16,20 @@ function BlogPots(props) {
 export const getServerSideProps = async (context) => {
   try {
     await connectDB();
-    const blogPosts = await findPostsAll();
+    let blogPosts = await BlogPostModel.find(
+      {},
+      { thumbnial: 1, title: 1, likes: 1 },
+    ).populate("owner", "avatar email");
+    blogPosts = JSON.parse(JSON.stringify(blogPosts));
+
+    const res = {
+      success: "posts Found",
+      posts: blogPosts,
+      postsCount: blogPosts.length,
+    };
     return {
       props: {
-        blogPosts,
+        blogPosts: { ...res },
       },
     };
   } catch (e) {
