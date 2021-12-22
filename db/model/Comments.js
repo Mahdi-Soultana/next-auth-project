@@ -26,5 +26,5 @@ commentSchema.method.addLike = function (user) {
 };
 
 const commentModel =
-  mongoose.model("comment") || mongoose.model("comment", commentSchema);
+  mongoose.models.comment || mongoose.model("comment", commentSchema);
 export default commentModel;

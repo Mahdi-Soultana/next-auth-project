@@ -29,11 +29,13 @@ const user = new Schema({
 user.virtual("id").get(function () {
   return this._id.toHexString();
 });
-user.pre("remove", function (next) {
-  const BlogPost = mongoose.model("blogPost");
-  // this === joe
+// user.pre("remove", function (next) {
+//   const BlogPost = mongoose.model("blogPost");
+//   // this === joe
 
-  BlogPost.remove({ _id: { $in: this.blogs } }).then(() => next());
-});
+//   BlogPost.remove({ _id: { $in: this.blogs } }).then(() => next());
+// });
 user.set("toJson", { virtual: true });
-export default mongoose.model("user") || mongoose.model("user", user);
+
+const User = mongoose.models.user || mongoose.model("user", user);
+export default User;

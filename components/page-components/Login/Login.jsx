@@ -1,13 +1,16 @@
+import User from "../../../db/model/User";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 // import imgDEFAULT from "/images/gust.jpg";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { StyledLogin } from "./StyledLoginForm";
 import getFile from "../../../utils/getFile";
 import { transform } from "framer-motion";
 import SignInBTN from "./Btns/SignInBTN";
 import useMutate from "../../../hooks/useMutate";
+
 const initUser = {
   password: "",
   email: "",
@@ -22,8 +25,11 @@ function Login() {
   const [isValid, setIsVlaid] = useState("false");
   const [loading, setLoading] = useState("false");
   const { mutate, response, isLoading } = useMutate("/api/auth/signup");
+
   let formReady = !!user.email.trim() && !!user.password;
+
   const newuser = response?.user;
+  console.log(newuser);
   if (newuser) {
     (async function () {
       const res = await signIn("credentials", {
@@ -139,12 +145,15 @@ function Login() {
           <span>avatar</span>
           <div className="image">
             <span>
-              <img
+              <Image
                 src={
                   user.avatar ||
                   "https://res.cloudinary.com/soultana-mahdi/image/upload/v1638902215/next-auth-demo/avatars/bzk8jfhnabsraivlndlt.jpg"
                 }
-                alt="img"
+                alt="user"
+                width={100}
+                height={100}
+                layout="responsive"
               />
             </span>
             <input

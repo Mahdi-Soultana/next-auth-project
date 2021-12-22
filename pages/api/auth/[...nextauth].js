@@ -5,8 +5,10 @@ import LinkedInProvider from "next-auth/providers/linkedin";
 import TwitterProvider from "next-auth/providers/twitter";
 import FacebookProvider from "next-auth/providers/facebook";
 import InstagramProvider from "next-auth/providers/instagram";
-import User from "../../../db/model/User";
+import mongoose from "mongoose";
+
 import connectDb from "../../../db/connectDb";
+
 import UserModel from "../../../db/model/User";
 export default NextAuth({
   session: {
@@ -38,7 +40,8 @@ export default NextAuth({
       name: "Credentials",
       async authorize(credentials, req) {
         await connectDb();
-        const user = await User.findOne({ email: credentials.email });
+        console.log("connect next auth");
+        const user = await UserModel.findOne({ email: credentials.email });
         if (!user) {
           throw new Error("email not found !");
         }

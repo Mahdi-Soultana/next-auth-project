@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import getFile from "../../../utils/getFile";
-
+import Image from "next/image";
 function Form({ blogState }) {
   const [blog, setBlog] = blogState;
 
@@ -8,15 +8,16 @@ function Form({ blogState }) {
 
   const [load, setLoad] = useState("false");
   const [loading, setLoading] = useState(false);
-  let isLoading;
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     if (load == "false" || loading == false) {
-      isLoading = "false";
+      setIsLoading("false");
     } else {
-      isLoading = "true";
+      setIsLoading("true");
     }
     return () => {
-      isLoading = "false";
+      setIsLoading("false");
     };
   }, [load, loading, isLoading]);
 
@@ -83,12 +84,15 @@ function Form({ blogState }) {
         <span>Thumbnial</span>
         <div className="image">
           <span>
-            <img
+            <Image
               src={
                 blog.thumbnial ||
                 "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
               }
-              alt="img"
+              alt="user"
+              width={100}
+              height={100}
+              layout="responsive"
             />
           </span>
           <input

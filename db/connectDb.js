@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
-
+import User from "./model/User";
+import BlogPost from "./model/BlogPosts";
+import Comment from "./model/Comments";
 const MONGODB_URI = process.env.URI;
 
 if (!MONGODB_URI) {
@@ -28,6 +30,8 @@ async function dbConnect() {
     const opts = {
       useNewUrlParser: true,
       bufferCommands: false,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {

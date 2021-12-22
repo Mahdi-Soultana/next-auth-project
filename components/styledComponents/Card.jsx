@@ -12,9 +12,6 @@ function CardComponent({ data }) {
         src={data.thumbnial}
         alt=""
         onClick={() => {
-          console.log("fetch");
-        }}
-        onClick={() => {
           router.push("/blogs/" + data._id);
         }}
       />

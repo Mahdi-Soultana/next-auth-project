@@ -4,9 +4,7 @@ import Layout from "../components/layout/Layout";
 import WelcomHome from "../components/page-components/WelcomHome/WelcomHome";
 import { protectPage } from "../utils/authRedirect";
 
-function welcom() {
-  const { data: session, status } = useSession();
-  console.log(session);
+function Welcome() {
   return (
     <Layout title="Welcom in My Home">
       <WelcomHome />
@@ -15,4 +13,4 @@ function welcom() {
 }
 export const getServerSideProps = async (context) => protectPage(context);
 
-export default welcom;
+export default Welcome;

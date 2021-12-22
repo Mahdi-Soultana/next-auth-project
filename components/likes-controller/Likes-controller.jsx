@@ -66,19 +66,17 @@ function LikesController({ page = "blog", data }) {
       setIsLiked(false);
       setLikesLength((prev) => prev - 1);
     }
-  }, [response]);
+  }, [response, setLikesLength, setIsLiked]);
 
   const {
     user: { email, id },
   } = useUserContext();
 
   useEffect(() => {
-    console.log(data);
-    console.log(email);
     if (data.likes.includes(id)) {
       setIsLiked(true);
     }
-  }, []);
+  }, [data, setIsLiked, id]);
   return (
     <ControllerLikesContainer page={page} isLoading={isLoading.toString()}>
       <div

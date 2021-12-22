@@ -1,8 +1,11 @@
-import { getSession } from "next-auth/react";
+import BlogPosts from "../../db/model/BlogPosts";
+import connectDB from "../../db/connectDb";
+import { findPostsAll } from "../../db/controllers/blogPostController";
+
 import React from "react";
 import Layout from "../../components/layout/Layout";
 import BlogComponent from "../../components/page-components/blog/BlogComponent";
-import { protectPage } from "../../utils/authRedirect";
+
 function BlogPots(props) {
   return (
     <Layout title="Blogs Community">
@@ -13,9 +16,8 @@ function BlogPots(props) {
 }
 export const getServerSideProps = async (context) => {
   try {
-    const blogPosts = await fetch(`${process.env.NEXTAUTH_URL}/api/blog`).then(
-      (res) => res.json(),
-    );
+    await connectDB();
+    const blogPosts = await findPostsAll();
     return {
       props: {
         blogPosts,
@@ -23,9 +25,8 @@ export const getServerSideProps = async (context) => {
     };
   } catch (e) {
     return {
-      redirect: {
-        destination: "/404",
-        permanent: false,
+      props: {
+        blogPosts: [],
       },
     };
   }

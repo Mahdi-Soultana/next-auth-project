@@ -26,7 +26,7 @@ export async function deletePost(req, res) {
 ///findPost
 export async function findPost(req, res) {
   console.log(req.query.id, "heeeeeeeeee");
-  const { id } = req.query;
+  const { id } = req.query || req.pramas;
   try {
     const BlogPost = await BlogPostModel.findById(id).populate(
       "owner",
@@ -75,7 +75,6 @@ export async function findPostsMe(req, res) {
 }
 ///findPostsAll
 export async function findPostsAll(req, res) {
-  const skiped = req.query.skip || 0;
   const BlogPosts = await BlogPostModel.find(
     {},
     { thumbnial: 1, title: 1, likes: 1 },

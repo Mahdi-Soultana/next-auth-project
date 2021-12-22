@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 
 import styled from "styled-components";
 import Link from "next/link";
+import Image from "next/image";
 
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
@@ -17,7 +18,7 @@ function Header() {
     if (res) {
       addUser(res.user);
     }
-  }, [res]);
+  }, [res, addUser]);
   return (
     <NavStyled>
       <h1>
@@ -56,7 +57,13 @@ function Header() {
         {res ? (
           <>
             <div title={res.user.name} className="avatar">
-              <img src={res.user.image} alt="" />
+              <Image
+                src={res.user.image}
+                alt="user"
+                width={100}
+                height={100}
+                layout="responsive"
+              />
             </div>
             <button
               onClick={async () => {
