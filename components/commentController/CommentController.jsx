@@ -14,23 +14,8 @@ function CommentController({ data }) {
   function addComment(comment) {
     setComment((prevC) => [...comments, comment]);
   }
-  function commentMangedState(data) {
-    if (data.status === "add_like_comment") {
-      setComment((prevS) =>
-        prevS.map((comment) => ({
-          ...comment,
-          likes: [...comment.likes, data.id],
-        })),
-      );
-    } else {
-      setComment((prevS) =>
-        prevS.map((comment) => ({
-          ...comment,
-          likes: comment.likes.filter((id) => data.id !== id),
-        })),
-      );
-    }
-    console.log(comments);
+  function deleteHandler(id) {
+    setComment((prevS) => prevS.filter((comment) => comment._id !== id));
   }
   return (
     <CommentStyled>
@@ -38,7 +23,8 @@ function CommentController({ data }) {
       <hr></hr>
       <CommentDispaly
         comments={comments}
-        commentMangedState={commentMangedState}
+        deleteHandler={deleteHandler}
+        postId={data._id}
       />
     </CommentStyled>
   );

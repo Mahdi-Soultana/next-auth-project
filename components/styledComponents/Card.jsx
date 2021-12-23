@@ -14,7 +14,7 @@ function CardComponent({ data }) {
 
   return (
     (client && (
-      <Card img={data.owner.avatar.url}>
+      <Card img={data.owner.avatar.url} title={data.title}>
         <motion.div className="card-img">
           <Image
             src={data.thumbnial}

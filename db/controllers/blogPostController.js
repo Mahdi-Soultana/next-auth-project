@@ -20,23 +20,26 @@ export async function createPost(req, res) {
   }
 }
 ///deletePost
-export async function deletePost(req, res) {
-  const BlogPost = await BlogPostModel.findByIdAndDelete(req.params.id);
-  res.send({ success: "post Deleted", post: BlogPost });
-}
-///findPost
-export async function findPost(req, res) {
-  const { id } = req.query || req.pramas;
-  try {
-    const BlogPost = await BlogPostModel.findById(id).populate(
-      "owner",
-      "avatar email",
-    );
-    res.send({ success: "post found", post: BlogPost });
-  } catch (e) {
-    throw new Error(e.message);
+export async function deleteUpdatePost(req, res) {
+  switch (req.body.type) {
+    case "delete_blog":
+      const BlogPost = await BlogPostModel.findByIdAndDelete(req.query.id);
+      res.send({ success: "post Deleted", id: BlogPost._id });
+      break;
+    case "delete_comment":
+      const comment = await CommentsModel.findByIdAndDelete(req.body.id);
+
+      res.send({ success: "comment Deleted", id: comment._id });
+      break;
+
+    default:
+      res.send({
+        error: "no_type action specify",
+      });
+      break;
   }
 }
+
 ///Updated Post
 export async function updatePost(req, res) {
   switch (req.body.type) {
@@ -156,4 +159,17 @@ export async function findPostsAll(req, res) {
     posts: BlogPosts,
     postsCount: BlogPosts.length,
   });
+}
+///findPost
+export async function findPost(req, res) {
+  const { id } = req.query || req.pramas;
+  try {
+    const BlogPost = await BlogPostModel.findById(id).populate(
+      "owner",
+      "avatar email",
+    );
+    res.send({ success: "post found", post: BlogPost });
+  } catch (e) {
+    throw new Error(e.message);
+  }
 }

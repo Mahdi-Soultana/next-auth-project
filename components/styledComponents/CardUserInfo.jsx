@@ -107,10 +107,10 @@ function CardUserInfo({ data, page = "blog", comment = false }) {
     mount && (
       <InfoUserCard page={page} img={data.owner?.avatar.url}>
         <div className="info">
-          <div className="img-container">
+          <div className="img-container" title="profile">
             <div></div>
           </div>
-          <div className="owner">
+          <div className="owner" title="owner">
             <motion.h3>{data.owner?.email}</motion.h3>
             {!comment && (
               <h5>

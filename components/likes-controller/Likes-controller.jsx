@@ -95,6 +95,7 @@ function LikesController({
   const actionStr = action ? `_${action}` : "";
   return (
     <ControllerLikesContainer
+      title="Like"
       page={page}
       isLoading={isLoading.toString()}
       action={action}

@@ -18,6 +18,10 @@ export const CommentStyled = styled.div`
     padding: 3rem;
   }
 `;
+export const CommentItemContainer = styled.div`
+  position: relative;
+  background-color: #0017802d;
+`;
 export const CommentFormStyles = styled.form`
   width: 80%;
   margin: 1rem auto;

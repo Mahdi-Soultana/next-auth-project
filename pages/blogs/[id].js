@@ -7,7 +7,7 @@ import SingleBlog from "../../components/page-components/singleBlog/SingleBlog";
 
 function PostSingle(props) {
   return (
-    <Layout title="Blog A">
+    <Layout title={`Blog Post | ${props.blogPost.post.title}...` || "Blog A"}>
       {" "}
       <SingleBlog blogState={props?.blogPost} />{" "}
     </Layout>

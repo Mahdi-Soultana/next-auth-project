@@ -1,5 +1,6 @@
 import React from "react";
 import LikesController from "../likes-controller/Likes-controller";
+import DeleteBtn from "../styledComponents/DeleteBtn";
 
 function CommentContent({ comment }) {
   function callback(response) {}

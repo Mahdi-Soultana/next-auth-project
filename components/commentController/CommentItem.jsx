@@ -8,10 +8,7 @@ function CommentItem({ comment, commentMangedState }) {
   return (
     <CommentItemStyles>
       <CommentOwner owner={comment.owner} />
-      <CommentContent
-        comment={comment}
-        commentMangedState={commentMangedState}
-      />
+      <CommentContent comment={comment} />
     </CommentItemStyles>
   );
 }
