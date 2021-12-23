@@ -17,10 +17,16 @@ export async function getServerSideProps(context) {
   try {
     await connectDB();
     // To Continue
-    let blogPost = await BlogPostModel.findById(context.params.id).populate(
-      "owner comment",
-      "avatar email",
-    );
+    let blogPost = await BlogPostModel.findById(context.params.id)
+      .populate("owner", "avatar email")
+      .populate({
+        path: "comment",
+        populate: {
+          path: "owner",
+          model: "user",
+          select: "avatar blogs",
+        },
+      });
     if (!blogPost) {
       return {
         notFound: true,

@@ -1,17 +1,19 @@
 import React from "react";
 import LikesController from "../likes-controller/Likes-controller";
 
-function CommentContent() {
+function CommentContent({ comment }) {
+  function callback(response) {}
   return (
     <div className="comment">
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure tenetur
-        quasi sapiente dolore officia dicta, laudantium expedita, praesentium
-        sed aspernatur at obcaecati accusamus cum veniam voluptates optio unde
-        modi perferendis.
-      </p>
-
-      <span> likes{/* <LikesController /> */}</span>
+      <p>{comment.content || "hey"}</p>
+      <div className="likesComment">
+        <LikesController
+          action="comment"
+          page="post"
+          data={{ ...comment, baseUrl: "/api/blog" }}
+          callback={callback}
+        />{" "}
+      </div>
     </div>
   );
 }

@@ -14,18 +14,25 @@ export const ControllerLikesContainer = styled.aside`
       if (p.page == "post") {
         return css`
           padding: 2rem 4rem;
-          background-color: #eff0ff;
+          background-color: ${(p) =>
+            p.action == "comment" ? "#ffffff0" : "#e0e0e049"};
         `;
       }
     }}
-
+    display:flex;
+    align-items: flex-end;
     span {
+      display: inline-block;
+
       font-weight: 600;
+
       ${(p) => {
-        if (p.page === "post") {
+        if (p.page == "post") {
           return css`
             font-size: 1.6rem;
             padding: 0.3rem;
+            color: ${(p) => (p.action == "comment" ? "#9b0404" : "#333")};
+            order: ${(p) => (p.action == "comment" ? "-1" : "0")};
           `;
         } else {
           return css`
@@ -44,7 +51,13 @@ export const ControllerLikesContainer = styled.aside`
     }
   }
 `;
-function LikesController({ page = "blog", data, baseUrl = "/api/blog/" }) {
+function LikesController({
+  page = "blog",
+  data,
+  baseUrl = "/api/blog/",
+  action = "",
+  callback = () => {},
+}) {
   const [isLiked, setIsLiked] = useState(false);
   const { mutate, response, isLoading } = useMutate(baseUrl + data._id, "PUT", {
     pending: "your action in progress",
@@ -55,6 +68,9 @@ function LikesController({ page = "blog", data, baseUrl = "/api/blog/" }) {
   const [likesLength, setLikesLength] = useState(() => data.likes?.length);
 
   useEffect(() => {
+    if (response?.success) {
+      callback(response);
+    }
     if (response?.status === "add") {
       setIsLiked(true);
       setLikesLength((prev) => prev + 1);
@@ -62,6 +78,9 @@ function LikesController({ page = "blog", data, baseUrl = "/api/blog/" }) {
       setIsLiked(false);
       setLikesLength((prev) => prev - 1);
     }
+    return () => {
+      setIsLiked(isLiked);
+    };
   }, [response, setLikesLength, setIsLiked]);
 
   const {
@@ -73,13 +92,18 @@ function LikesController({ page = "blog", data, baseUrl = "/api/blog/" }) {
       setIsLiked(true);
     }
   }, [data, setIsLiked, id]);
+  const actionStr = action ? `_${action}` : "";
   return (
-    <ControllerLikesContainer page={page} isLoading={isLoading.toString()}>
+    <ControllerLikesContainer
+      page={page}
+      isLoading={isLoading.toString()}
+      action={action}
+    >
       <div
         onClick={() => {
           mutate({
-            type: isLiked ? "remove_like" : "add_like",
-            postId: data._id,
+            type: isLiked ? "remove_like" + actionStr : "add_like" + actionStr,
+            id: data._id,
             email,
           });
         }}

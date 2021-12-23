@@ -105,11 +105,7 @@ function CardUserInfo({ data, page = "blog", comment = false }) {
   }, []);
   return (
     mount && (
-      <InfoUserCard
-        page={page}
-        img={data.owner?.avatar.url}
-        comment={comment ? "true" : "false"}
-      >
+      <InfoUserCard page={page} img={data.owner?.avatar.url}>
         <div className="info">
           <div className="img-container">
             <div></div>

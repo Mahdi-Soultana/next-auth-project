@@ -75,10 +75,14 @@ export async function updatePost(req, res) {
     case "add_comment": {
       try {
         const { comment } = req.body;
+        if (comment.trim().length < 10) {
+          res.send({ error: "comment require up 10 caracter" });
+          return;
+        }
 
         // console.log({ title, content });
         const Comment = await CommentsModel.create({
-          comment,
+          content: comment,
           owner: req.user,
         });
         const blogPost = await BlogPostModel.findByIdAndUpdate(req.query.id, {
@@ -92,6 +96,42 @@ export async function updatePost(req, res) {
         throw new Error(e.message);
       }
     }
+    case "add_like_comment":
+      {
+        const comment = await CommentsModel.findByIdAndUpdate(
+          req.body.id,
+          {
+            $addToSet: {
+              likes: req.user,
+            },
+          },
+          { new: true },
+        );
+        res.send({
+          success: "your like is added",
+          id: comment._id,
+          status: "add",
+        });
+      }
+      break;
+    case "remove_like_comment":
+      {
+        const comment = await CommentsModel.findByIdAndUpdate(
+          req.body.id,
+          {
+            $pull: {
+              likes: req.user.id,
+            },
+          },
+          { new: true },
+        );
+        res.send({
+          success: "your like removed",
+          status: "remove",
+          id: comment._id,
+        });
+      }
+      break;
     default:
       res.send({
         error: "no_type action specify",

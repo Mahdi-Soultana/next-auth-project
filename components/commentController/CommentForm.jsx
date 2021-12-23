@@ -9,7 +9,7 @@ function CommentForm({ id, addComment }) {
     "PUT",
     {
       pending: "comment under process ⏳",
-      success: "your comment Added ✨",
+      success: "your comment response back ✨",
       error: "Something went wrong 🤯",
     },
   );
@@ -44,7 +44,9 @@ function CommentForm({ id, addComment }) {
           placeholder="you can comment with markdown !"
         ></textarea>
       </label>
-      <button type="submit">Comment</button>
+      <button type="submit" disabled={comment.trim().length < 10}>
+        Comment
+      </button>
     </CommentFormStyles>
   );
 }

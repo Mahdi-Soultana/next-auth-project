@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CommentItem from "./CommentItem";
 import { CommentListStyles } from "./CommentStyles";
-function CommentDispaly({ comments }) {
+function CommentDispaly({ comments, commentMangedState }) {
   const [show, setShow] = useState(false);
   return (
     <>
@@ -13,7 +13,11 @@ function CommentDispaly({ comments }) {
       {show && (
         <CommentListStyles>
           {comments.map((comment, i) => (
-            <CommentItem key={i} />
+            <CommentItem
+              key={comment._id}
+              comment={comment}
+              commentMangedState={commentMangedState}
+            />
           ))}
         </CommentListStyles>
       )}

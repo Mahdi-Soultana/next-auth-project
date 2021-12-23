@@ -60,17 +60,25 @@ export const CommentListStyles = styled.ul`
   margin: 1rem auto;
 `;
 export const CommentItemStyles = styled.li`
-  display: flex;
+  display: grid;
+  grid-template: minmax(100px, max-content) / 130px 1fr;
 
+  gap: 1rem;
+  @media (max-width: 600px) {
+    grid-template-columns: minmax(200px, 400px);
+    grid-auto-rows: min-content;
+  }
+  margin-bottom: 4rem;
   width: 100%;
   > div {
     min-height: 100px;
     height: 100%;
     padding: 1rem;
   }
+
   .user-info {
     h4 {
-      padding: 0.5rem;
+      padding: 0.1rem;
     }
 
     text-align: center;
@@ -78,7 +86,7 @@ export const CommentItemStyles = styled.li`
       box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
       border-radius: 50%;
       overflow: hidden;
-
+      margin: auto;
       height: 70px;
       width: 70px;
       img {
@@ -96,6 +104,14 @@ export const CommentItemStyles = styled.li`
     flex-basis: 150px;
   }
   .comment {
+    position: relative;
+    .likesComment {
+      position: absolute;
+      bottom: -5rem;
+      right: 0rem;
+    }
+
+    width: 100%;
     background: #002b47;
     border-radius: 0.2em;
     box-shadow: 1px 1px 4px rgba(27, 27, 27, 0.267);
@@ -110,6 +126,9 @@ export const CommentItemStyles = styled.li`
       font-family: "M PLUS Code Latin", sans-serif;
       text-align: left;
       font-weight: 600;
+      hyphens: auto;
+      word-break: break-all;
+      padding: 0.3rem 1rem;
     }
     span {
       display: block;

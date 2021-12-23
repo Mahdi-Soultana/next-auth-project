@@ -113,6 +113,10 @@ button,.btn {
     background: #ffffff;
     color: #002b47;
   }
+  &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
 
 }
 a{
@@ -246,7 +250,11 @@ h1,h2,h3,h4,h5{
 }
 
 
-
+ @media (max-width: 600px) {
+  html {
+  font-size: 56.5%;
+}
+  }
       `;
 
 // font-family: 'M PLUS Code Latin', sans-serif;
