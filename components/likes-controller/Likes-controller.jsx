@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { FaHeart } from "react-icons/fa";
-import { useUserContext } from "../../hooks/userProvider";
+import { useAllowed } from "../../hooks/useAuth";
 import { useMutation } from "react-query";
 import useMutate from "../../hooks/useMutate";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { useUserContext } from "../../hooks/userProvider";
 export const ControllerLikesContainer = styled.aside`
   display: flex;
   justify-content: flex-end;
@@ -57,6 +60,7 @@ function LikesController({
   baseUrl = "/api/blog/",
   action = "",
   callback = () => {},
+  owner,
 }) {
   const [isLiked, setIsLiked] = useState(false);
   const { mutate, response, isLoading } = useMutate(baseUrl + data._id, "PUT", {
@@ -64,9 +68,9 @@ function LikesController({
     error: "🥵 something wrong try again",
     success: isLiked ? "🤔 you unliked the post " : "❤️ you like the post",
   });
-
   const [likesLength, setLikesLength] = useState(() => data.likes?.length);
 
+  const router = useRouter();
   useEffect(() => {
     if (response?.success) {
       callback(response);
@@ -82,37 +86,52 @@ function LikesController({
       setIsLiked(isLiked);
     };
   }, [response, setLikesLength, setIsLiked]);
-
   const {
-    user: { email, id },
+    user: { id, email },
   } = useUserContext();
-
   useEffect(() => {
     if (data.likes.includes(id)) {
       setIsLiked(true);
     }
   }, [data, setIsLiked, id]);
+
   const actionStr = action ? `_${action}` : "";
+  function handelClickLike() {
+    mutate({
+      type: isLiked ? "remove_like" + actionStr : "add_like" + actionStr,
+      id: data._id,
+      email,
+    });
+  }
+  function handelClickRedirect() {
+    const res = window.prompt("tape yes to complete signIn ! ");
+    if (res === "yes") {
+      router.replace("/profiles/me");
+    } else {
+      toast.warn("complete sign for enabling your account !");
+    }
+  }
+
   return (
-    <ControllerLikesContainer
-      title="Like"
-      page={page}
-      isLoading={isLoading.toString()}
-      action={action}
-    >
-      <div
-        onClick={() => {
-          mutate({
-            type: isLiked ? "remove_like" + actionStr : "add_like" + actionStr,
-            id: data._id,
-            email,
-          });
-        }}
-      >
-        <FaHeart size="3rem" fill={isLiked ? "red" : "white"} stroke="red" />
-        <span>{likesLength}</span>
-      </div>
-    </ControllerLikesContainer>
+    <>
+      {id && (
+        <ControllerLikesContainer
+          title="Like"
+          page={page}
+          isLoading={isLoading.toString()}
+          action={action}
+        >
+          <div onClick={handelClickLike}>
+            <FaHeart
+              size="3rem"
+              fill={isLiked ? "red" : "white"}
+              stroke="red"
+            />
+            <span>{likesLength}</span>
+          </div>
+        </ControllerLikesContainer>
+      )}
+    </>
   );
 }
 

@@ -119,7 +119,7 @@ function CardUserInfo({ data, page = "blog", comment = false }) {
             )}
           </div>
         </div>
-        <LikesController page={page} data={data} />
+        <LikesController page={page} data={data} owner={data.owner} />
       </InfoUserCard>
     )
   );

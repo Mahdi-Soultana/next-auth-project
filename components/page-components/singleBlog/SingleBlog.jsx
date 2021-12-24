@@ -18,6 +18,7 @@ function SingleBlog(props) {
       <SinglePostContainer>
         <DeleteBtn
           pramas={props?.blogState.post._id}
+          owner={props?.blogState.post.owner}
           id=""
           typeReq="blog"
           deleteHandler={() => {

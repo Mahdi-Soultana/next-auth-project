@@ -3,6 +3,7 @@ import useMutate from "../../hooks/useMutate";
 import styled, { css } from "styled-components";
 import { FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { useAllowed } from "../../hooks/useAuth";
 export const DeleteBtnStyles = styled.button`
   position: absolute;
   z-index: 10;
@@ -54,7 +55,8 @@ export const DeleteBtnStyles = styled.button`
   }
 `;
 
-function DeleteBtn({ id = "", pramas = "", deleteHandler, typeReq }) {
+function DeleteBtn({ id = "", pramas = "", deleteHandler, typeReq, owner }) {
+  const { allowed } = useAllowed({ id: owner._id, email: owner.email });
   const type = typeReq ? typeReq : "comment";
   const { response, mutate } = useMutate("/api/blog/" + pramas, "DELETE", {
     pending: `delete ${type} onProgress`,
@@ -66,24 +68,28 @@ function DeleteBtn({ id = "", pramas = "", deleteHandler, typeReq }) {
       deleteHandler(response.id);
     }
   }, [response]);
-
+  console.log(allowed);
   return (
-    <DeleteBtnStyles
-      title={"Delete " + type}
-      typerequest={type}
-      onClick={() => {
-        const enterValue = window.prompt(`Tape " delete " `);
-        if (enterValue.trim() == "delete") {
-          console.log("delete", id);
-          mutate({ type: "delete_" + type, id });
-        } else {
-          toast.warn("tape delete correctly 💡");
-        }
-        //
-      }}
-    >
-      <FaTrash size={typeReq ? "3rem" : "1.5rem"} color="red" />
-    </DeleteBtnStyles>
+    <>
+      {allowed !== "not_allowed" && (
+        <DeleteBtnStyles
+          title={"Delete " + type}
+          typerequest={type}
+          onClick={() => {
+            const enterValue = window.prompt(`Tape " delete " `);
+            if (enterValue.trim() == "delete") {
+              console.log("delete", id);
+              mutate({ type: "delete_" + type, id });
+            } else {
+              toast.warn("tape delete correctly 💡");
+            }
+            //
+          }}
+        >
+          <FaTrash size={typeReq ? "3rem" : "1.5rem"} color="red" />
+        </DeleteBtnStyles>
+      )}
+    </>
   );
 }
 

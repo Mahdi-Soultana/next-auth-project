@@ -19,6 +19,7 @@ function CommentDispaly({ comments, deleteHandler, postId }) {
                 id={comment._id}
                 deleteHandler={deleteHandler}
                 pramas={postId}
+                owner={comment.owner}
               />
               <CommentItem comment={comment} />
             </CommentItemContainer>
