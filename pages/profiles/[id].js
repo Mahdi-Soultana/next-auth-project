@@ -2,11 +2,11 @@ import React from "react";
 import Layout from "../../components/layout/Layout";
 import UsermModel from "../../db/model/User";
 import { getSession } from "next-auth/react";
-function Me(props) {
-  console.log(props.user);
+function Me({ user, profile }) {
+  console.log(profile);
   return (
-    <Layout title="My Profile">
-      <h1>My Profile</h1>
+    <Layout title="Profile of user">
+      <h1>My Profile {user._id}</h1>
     </Layout>
   );
 }
@@ -20,14 +20,17 @@ export const getServerSideProps = async (context) => {
       },
     };
   }
-  const id = session.user.id || undefined;
-
+  const id = context.params.id;
+  const profile = await UsermModel.findById(session.user.id, {
+    password: 0,
+  }).lean();
   const user = await UsermModel.findById(id, { password: 0 });
 
   return {
     props: {
       session,
       user: JSON.parse(JSON.stringify(user)),
+      profile: JSON.parse(JSON.stringify(profile)),
     },
   };
 };

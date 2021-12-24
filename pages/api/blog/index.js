@@ -12,8 +12,14 @@ ncFn
     // console.log(req.body.title);
     if (thumb) {
       try {
-        const { secure_url } = await config(req.body.thumbnial, "thumbnial");
-        req.thumbnial = secure_url;
+        const { secure_url, public_id } = await config(
+          req.body.thumbnial,
+          "thumbnial",
+        );
+        req.thumbnial = {
+          url: secure_url,
+          public_id,
+        };
         next();
       } catch (e) {
         throw new Error("feild uploading thumbnial !");

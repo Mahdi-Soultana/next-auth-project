@@ -36,7 +36,7 @@ function Header() {
               </Link>
             </li>
             <li>
-              <Link href={"/profile"}>
+              <Link href={"/profiles"}>
                 <a>profile</a>
               </Link>
             </li>{" "}
@@ -57,15 +57,17 @@ function Header() {
       <ul>
         {res?.user ? (
           <>
-            <div title={res.user.name} className="avatar">
-              <Image
-                src={res.user.image}
-                alt="user"
-                width={100}
-                height={100}
-                layout="responsive"
-              />
-            </div>
+            <Link href={"/profiles/me"}>
+              <div title={res.user.name} className="avatar">
+                <Image
+                  src={res.user.image}
+                  alt="user"
+                  width={100}
+                  height={100}
+                  layout="responsive"
+                />
+              </div>
+            </Link>
             <button
               onClick={async () => {
                 const res = await signOut({

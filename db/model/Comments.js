@@ -2,14 +2,17 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const commentSchema = new Schema({
-  content: String,
-  owner: {
-    type: Schema.Types.ObjectId,
-    ref: "user",
+const commentSchema = new Schema(
+  {
+    content: String,
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
+    likes: [{ type: Schema.Types.ObjectId, ref: "user" }],
   },
-  likes: [{ type: Schema.Types.ObjectId, ref: "user" }],
-});
+  { timestamps: true },
+);
 commentSchema.virtual("likesCount").get(function () {
   return this.likes.length;
 });

@@ -57,7 +57,7 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token }) {
       token.any_property = "ANY_PROPERTY in [...nextauth] callbacks jwt !!  ";
       try {
         const user = await UserModel.findOne({ email: token.email });
