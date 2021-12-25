@@ -3,7 +3,6 @@ import Layout from "../../components/layout/Layout";
 import UsermModel from "../../db/model/User";
 import { getSession } from "next-auth/react";
 function Me({ user, profile }) {
-  console.log(profile);
   return (
     <Layout title="Profile of user">
       <h1>My Profile {user._id}</h1>

@@ -46,7 +46,7 @@ function CardProfile({ user, id }) {
         </div>
       </Link>
       <Link href={"/members/" + user._id}>
-        <h3 title={user.name}>Name</h3>
+        <h3 title={user.name}>{user.name || "Name"}</h3>
       </Link>
 
       <div className="info">

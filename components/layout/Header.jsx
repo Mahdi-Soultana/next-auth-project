@@ -57,7 +57,7 @@ function Header() {
       <ul>
         {res?.user ? (
           <>
-            <Link href={"/profiles/me"}>
+            <Link href={"/members/me"}>
               <div title="profile" className="avatar">
                 <Image
                   src={res.user.image}
