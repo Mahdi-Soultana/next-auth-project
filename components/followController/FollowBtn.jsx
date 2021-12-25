@@ -7,7 +7,7 @@ import { useUserContext } from "../../hooks/userProvider";
 import { FollowBtnStyles } from "./FollowBtnStyles";
 
 function FollowBtn({
-  data,
+  user,
   baseUrl = "/api/profiles/",
   callback = () => {},
   owner,
@@ -35,24 +35,24 @@ function FollowBtn({
   }, [response, setIsFollow]);
   const { user: { id = "" } = { user: "" } } = useUserContext();
   useEffect(() => {
-    if (data.follower?.includes(id)) {
+    if (user.follower?.includes(id)) {
       setIsFollow(true);
     }
-  }, [data, setIsFollow, id]);
+  }, [user, setIsFollow, id]);
 
   function handelClickLike() {
-    if (id !== data._id) {
+    if (id !== user._id) {
       setIsFollow((prevS) => !prevS);
       mutate({
         type: isFollow ? "unfollow" : "follow",
-        id: data._id,
+        id: user._id,
       });
     } else {
       toast.warn("You Can't Follow your self !");
     }
   }
   let title = "";
-  if (id !== data._id) {
+  if (id !== user._id) {
     if (isFollow) {
       title = "UnFollow";
     } else {
@@ -70,7 +70,7 @@ function FollowBtn({
           isLoading={isLoading.toString()}
           isfollow={isFollow.toString()}
           onClick={handelClickLike}
-          disabled={id === data._id}
+          disabled={id === user._id}
         >
           {isFollow ? "UnFollow" : "Follow"}
         </FollowBtnStyles>

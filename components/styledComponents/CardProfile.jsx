@@ -72,7 +72,7 @@ function CardProfile({ user, id }) {
         </div>
       </div>
 
-      <FollowBtn data={user} callback={callback} />
+      <FollowBtn user={user} callback={callback} />
     </ProfileStyles>
   );
 }

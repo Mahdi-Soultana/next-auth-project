@@ -12,10 +12,13 @@ export const LayoutStyled = styled.div`
   width: 100%;
   min-height: 100vh;
   height: 100%;
+  .container {
+    max-width: ${(p) => p.width};
+  }
 `;
-function Layout({ children, title }) {
+function Layout({ children, title, width = "1000px" }) {
   return (
-    <LayoutStyled>
+    <LayoutStyled width={width}>
       <Head>
         <title>{title}</title>
 

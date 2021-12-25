@@ -1,12 +1,11 @@
 import React from "react";
 import Layout from "../../components/layout/Layout";
-import MyProfile from "../../components/page-components/profiles/Me";
+import MyProfile from "../../components/page-components/me/Me";
 import UsermModel from "../../db/model/User";
 import { getSession } from "next-auth/react";
 function Me(props) {
-  console.log(props.user);
   return (
-    <Layout title="My Profile">
+    <Layout title="My Profile" width="91%">
       <h1>My Profile</h1>
       <MyProfile user={props.user} />
     </Layout>
