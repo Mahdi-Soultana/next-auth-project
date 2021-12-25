@@ -6,14 +6,14 @@ import { StyledGlobale } from "../styles/StyledGlobale";
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const client = new QueryClient();
   return (
-    <QueryClientProvider client={client}>
-      <SessionProvider session={session}>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={client}>
         <UserPorvider>
           <StyledGlobale />
           <Component {...pageProps} />
         </UserPorvider>
-      </SessionProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </SessionProvider>
   );
 }
 

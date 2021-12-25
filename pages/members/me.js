@@ -1,5 +1,6 @@
 import React from "react";
 import Layout from "../../components/layout/Layout";
+import MyProfile from "../../components/page-components/profiles/Me";
 import UsermModel from "../../db/model/User";
 import { getSession } from "next-auth/react";
 function Me(props) {
@@ -7,6 +8,7 @@ function Me(props) {
   return (
     <Layout title="My Profile">
       <h1>My Profile</h1>
+      <MyProfile user={props.user} />
     </Layout>
   );
 }

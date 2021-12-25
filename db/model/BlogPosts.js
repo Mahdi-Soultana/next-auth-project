@@ -22,6 +22,7 @@ const blogPostSchema = new Schema(
     },
     content: String,
     likes: [{ type: Schema.Types.ObjectId, ref: "user" }],
+    likesCount: { type: Number, default: 0 },
     owner: { type: Schema.Types.ObjectId, ref: "user" },
     comment: [
       {
@@ -32,14 +33,16 @@ const blogPostSchema = new Schema(
   },
   { timestamps: true },
 );
-blogPostSchema.pre("remove", function (next) {
+blogPostSchema.pre("remove", async function (next) {
+  const CommentModel = mongoose.model("comment");
+  await CommentModel.deleteMany({ _id: { $in: this.comment } });
   cloudinary.v2.uploader.destroy(
     this.thumbnial.public_id,
     function (error, result) {
       console.log(result, error);
+      next();
     },
   );
-  next();
 });
 
 const blogPostModel =

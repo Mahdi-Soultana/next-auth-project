@@ -10,12 +10,10 @@ const commentSchema = new Schema(
       ref: "user",
     },
     likes: [{ type: Schema.Types.ObjectId, ref: "user" }],
+    likesCount: { type: Number, default: 0 },
   },
   { timestamps: true },
 );
-commentSchema.virtual("likesCount").get(function () {
-  return this.likes.length;
-});
 
 commentSchema.method.addLike = function (user) {
   const comment = this;

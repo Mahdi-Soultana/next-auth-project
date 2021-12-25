@@ -12,6 +12,7 @@ const initUser = {
   password: "",
   email: "",
   avatar: "/images/gust.jpg",
+  name: "",
 };
 
 function Login() {
@@ -21,7 +22,11 @@ function Login() {
   const [load, setLoad] = useState("false");
   const [isValid, setIsVlaid] = useState("false");
   const [loading, setLoading] = useState("false");
-  const { mutate, response, isLoading } = useMutate("/api/auth/signup");
+  const { mutate, response, isLoading } = useMutate(
+    "/api/auth/signup",
+    "POST",
+    { success: "Well Done ! 🚀" },
+  );
   let formReady = !!user.email.trim() && !!user.password;
   const newuser = response?.user;
   if (newuser) {
@@ -30,9 +35,7 @@ function Login() {
         redirect: false,
         ...newuser,
       });
-      toast.success("Well Done !", {
-        icon: "🚀",
-      });
+
       router.push("/welcome");
     })();
   } else {
@@ -65,6 +68,7 @@ function Login() {
       }
     }
   }
+
   async function handelOnChange(e) {
     if (e.target.name === "avatar") {
       let file = e.target.files[0];
@@ -109,11 +113,12 @@ function Login() {
   return (
     <StyledLogin onSubmit={handelSubmit} load={loadingConst} autoComplete="off">
       <h1> {switcher ? "SignUp Now" : "Login Now"}</h1>
-      <label htmlFor="name">
+      <label htmlFor="email">
         <span>email</span>
         <input
           autoComplete="off"
           type="email"
+          id="email"
           placeholder="xyz@email.com"
           name="email"
           value={user.email}
@@ -127,6 +132,7 @@ function Login() {
           placeholder="xxxxxxxxxx"
           type="password"
           name="password"
+          id="password"
           autoComplete="off"
           value={user.password}
           onChange={handelOnChange}
@@ -135,29 +141,44 @@ function Login() {
       </label>
 
       {switcher && (
-        <label htmlFor="image">
-          <span>avatar</span>
-          <div className="image">
-            <span>
-              <img
-                src={
-                  user.avatar ||
-                  "https://res.cloudinary.com/soultana-mahdi/image/upload/v1638902215/next-auth-demo/avatars/bzk8jfhnabsraivlndlt.jpg"
-                }
-                alt="img"
-              />
-            </span>
+        <>
+          <label htmlFor="name">
+            <span>Name</span>
             <input
-              placeholder="xxxxxxxxxx"
               autoComplete="off"
-              type="file"
-              name="avatar"
-              id="image"
-              onChange={handelOnChange}
+              type="text"
+              placeholder="jhon Doe"
+              name="name"
+              id="name"
+              value={user.name}
               required
+              onChange={handelOnChange}
             />
-          </div>
-        </label>
+          </label>
+          <label htmlFor="image">
+            <span>avatar</span>
+            <div className="image">
+              <span>
+                <img
+                  src={
+                    user.avatar ||
+                    "https://res.cloudinary.com/soultana-mahdi/image/upload/v1638902215/next-auth-demo/avatars/bzk8jfhnabsraivlndlt.jpg"
+                  }
+                  alt="img"
+                />
+              </span>
+              <input
+                placeholder="xxxxxxxxxx"
+                autoComplete="off"
+                type="file"
+                name="avatar"
+                id="image"
+                onChange={handelOnChange}
+                required
+              />
+            </div>
+          </label>
+        </>
       )}
       <button disabled={!formReady || loading === "true" ? true : false}>
         {switcher ? "SignUp" : "Login"}

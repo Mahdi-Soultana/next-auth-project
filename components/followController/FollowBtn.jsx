@@ -8,12 +8,13 @@ import { FollowBtnStyles } from "./FollowBtnStyles";
 
 function FollowBtn({
   data,
-  baseUrl = "/api/user/",
+  baseUrl = "/api/profiles/",
   callback = () => {},
   owner,
+  params = "",
 }) {
   const [isFollow, setIsFollow] = useState(false);
-  const { mutate, response, isLoading } = useMutate(baseUrl + data._id, "PUT", {
+  const { mutate, response, isLoading } = useMutate(baseUrl + params, "PUT", {
     pending: "your action in progress",
     error: "🥵 something wrong try again",
     success: isFollow ? "🤔 you UnFollow this user " : "❤️ you Follow ths user",
@@ -40,22 +41,36 @@ function FollowBtn({
   }, [data, setIsFollow, id]);
 
   function handelClickLike() {
-    setIsFollow((prevS) => !prevS);
-    // mutate({
-    //   type: isFollow ? "unfollow" : "follow",
-    //   id: data._id,
-    // });
-    console.log(data._id);
+    if (id !== data._id) {
+      setIsFollow((prevS) => !prevS);
+      mutate({
+        type: isFollow ? "unfollow" : "follow",
+        id: data._id,
+      });
+    } else {
+      toast.warn("You Can't Follow your self !");
+    }
+  }
+  let title = "";
+  if (id !== data._id) {
+    if (isFollow) {
+      title = "UnFollow";
+    } else {
+      title = "Follow";
+    }
+  } else {
+    title = "You Can't Follow your self !";
   }
 
   return (
     <>
       {id && (
         <FollowBtnStyles
-          title="Follow"
+          title={title}
           isLoading={isLoading.toString()}
           isfollow={isFollow.toString()}
           onClick={handelClickLike}
+          disabled={id === data._id}
         >
           {isFollow ? "UnFollow" : "Follow"}
         </FollowBtnStyles>

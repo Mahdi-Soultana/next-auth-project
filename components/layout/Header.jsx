@@ -22,7 +22,7 @@ function Header() {
   }, [res]);
   return (
     <NavStyled>
-      <h1>
+      <h1 title="Home">
         <Link href={res ? "/welcome" : "/"}>NextAuth</Link>
       </h1>
 
@@ -30,17 +30,17 @@ function Header() {
         {res?.user && (
           <>
             {" "}
-            <li>
+            <li title="Blogs">
               <Link href={"/blogs"}>
                 <a>Blogs</a>
               </Link>
             </li>
-            <li>
-              <Link href={"/profiles"}>
-                <a>profile</a>
+            <li title="members">
+              <Link href={"/members"}>
+                <a>Members</a>
               </Link>
             </li>{" "}
-            <li>
+            <li title="create-blog">
               <Link href={"/create-blog"}>
                 <a>create Blog</a>
               </Link>
@@ -49,7 +49,7 @@ function Header() {
         )}
         <li>
           <Link href={"/contact"}>
-            <a>contact</a>
+            <a title="contact">contact</a>
           </Link>
         </li>
       </ul>
@@ -58,7 +58,7 @@ function Header() {
         {res?.user ? (
           <>
             <Link href={"/profiles/me"}>
-              <div title={res.user.name} className="avatar">
+              <div title="profile" className="avatar">
                 <Image
                   src={res.user.image}
                   alt="user"
@@ -69,6 +69,7 @@ function Header() {
               </div>
             </Link>
             <button
+              title="Logout"
               onClick={async () => {
                 const res = await signOut({
                   redirect: false,
@@ -85,9 +86,12 @@ function Header() {
         ) : (
           <>
             <Link href="/about">
-              <a className="about">About</a>
+              <a title="about" className="about">
+                About
+              </a>
             </Link>
             <button
+              title="Login"
               onClick={() => {
                 router.push("/login");
               }}

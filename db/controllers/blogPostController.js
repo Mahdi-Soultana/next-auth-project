@@ -51,6 +51,9 @@ export async function updatePost(req, res) {
             $addToSet: {
               likes: req.user,
             },
+            $inc: {
+              likesCount: 1,
+            },
           },
           { new: true },
         );
@@ -64,6 +67,9 @@ export async function updatePost(req, res) {
           {
             $pull: {
               likes: req.user.id,
+            },
+            $inc: {
+              likesCount: -1,
             },
           },
           { new: true },
@@ -107,6 +113,9 @@ export async function updatePost(req, res) {
             $addToSet: {
               likes: req.user,
             },
+            $inc: {
+              likesCount: 1,
+            },
           },
           { new: true },
         );
@@ -124,6 +133,9 @@ export async function updatePost(req, res) {
           {
             $pull: {
               likes: req.user.id,
+            },
+            $inc: {
+              likesCount: -1,
             },
           },
           { new: true },

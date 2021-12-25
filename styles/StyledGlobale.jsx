@@ -70,6 +70,7 @@ body {
   background-color: #efefef;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align:center;
 }
 img {
   width: 100%;
@@ -169,7 +170,7 @@ ul a{
   align-items:center;
   flex-direction:column;
 h1{
-    text-align:left;
+    text-align:center;
   font-family: 'Montserrat', sans-serif;
     font-weight:600;
     font-size:3rem;
@@ -183,7 +184,17 @@ h1{
   }
 }
 h1,h2,h3,h4,h5{
+
+
   text-transform:capitalize;
+}
+main{
+
+  h1{
+    padding:1rem;
+    margin:1rem;
+
+  }
 }
 .marked-Down{
   width:95%;
