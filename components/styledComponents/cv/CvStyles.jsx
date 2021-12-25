@@ -54,7 +54,7 @@ export const CvStyles = styled.section`
     font-size: 1.2rem;
     font-weight: 600;
     padding: 1rem 0;
-    word-break: break-all;
+    text-break: break-all;
     line-height: 2;
   }
   .underline--verticle {
@@ -75,6 +75,27 @@ export const CvStyles = styled.section`
       font-size: 1.2rem;
       font-weight: 500;
       line-height: 1.8;
+    }
+  }
+  .wrapperInfo {
+    position: relative;
+    textarea {
+      width: 90%;
+      min-height: 10vh;
+      height: 100%;
+      resize: none;
+      overflow: auto;
+      padding: 0.5rem 1rem;
+      font-size: 1.3rem;
+
+      font-famaily: inherite;
+    }
+    .edit {
+      position: absolute;
+      top: -1rem;
+      right: 1rem;
+      display: inline-block;
+      cursor: pointer;
     }
   }
 `;
