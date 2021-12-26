@@ -1,9 +1,9 @@
 import React from "react";
 import { CvStyles, AsideContactStyles, MainStyles } from "./CvStyles";
-import Avatar from "./sections/Avatar";
+import Avatar from "./sections/Aside/Avatar";
 import Name from "./sections/Name";
 import Title from "./sections/Title";
-import Description from "./sections/Description";
+import Description from "./sections/MainSection/Description";
 import Exprience from "./sections/Expreience";
 import Study from "./sections/Study";
 import Skills from "./sections/Skills";
@@ -35,6 +35,7 @@ function CV({ user }) {
         </label>
         <label htmlFor="Address">
           <span>Address: :</span>
+
           <p>center Ville Kenitra Morocco</p>
         </label>
       </AsideContactStyles>
@@ -53,24 +54,31 @@ function CV({ user }) {
         <hr />
         <section className="experinces">
           <h1>Work Experience</h1>
-          <Exprience exprience={user?.exprience} />
+          <WrapperEdit>
+            <Exprience exprience={user?.exprience} />
+          </WrapperEdit>
         </section>
         <hr />
         <section className="study">
           <h1>Study History</h1>
-          <Study study={user?.study} />
+          <WrapperEdit>
+            <Study study={user?.study} />
+          </WrapperEdit>
+
           <footer>
             <article>
               <h1>Skills</h1>
-              <Skills skills={user?.skills} />
+              <WrapperEdit>
+                <Skills skills={user?.skills} />
+              </WrapperEdit>
             </article>
             <div className="underline--verticle"></div>
             <article>
               <h1>Languages</h1>
-              <ul>
-                <h5>Spoken:</h5>
+              <h5>Spoken:</h5>
+              <WrapperEdit>
                 <Languages languages={user?.languages} />
-              </ul>
+              </WrapperEdit>
             </article>
           </footer>
         </section>
