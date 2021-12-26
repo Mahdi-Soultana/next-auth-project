@@ -1,5 +1,5 @@
 import React, { useContext, useState, useMemo, use } from "react";
-
+import { useUserContext } from "../../../../hooks/userProvider";
 const EditContext = React.createContext();
 import { FaPencilAlt } from "react-icons/fa";
 import { MdPreview } from "react-icons/md";
@@ -13,16 +13,20 @@ export const useEditContext = () => useContext(EditContext);
 export function handelChange(e, setState, edit) {
   setState(e.target.value);
 }
-function WrapperEdit({ user, children, label = "description" }) {
+////////////Main Component
+function WrapperEdit({ userId, children, label = "description" }) {
   const [value, setValue] = React.useState("");
+  const {
+    user: { id },
+  } = useUserContext();
 
   let StateEdit = useState(false);
 
   const [edit, setEdit] = useMemo(() => StateEdit, [StateEdit]);
-
+  const isMe = userId === id;
   return (
     <EditContext.Provider value={{ edit, value, setValue }}>
-      <div className="wrapperInfo">
+      <div className={"wrapperInfo"}>
         <>
           {edit && (
             <textarea
@@ -33,16 +37,25 @@ function WrapperEdit({ user, children, label = "description" }) {
               {value}
             </textarea>
           )}
+
           {children}
         </>
-        {edit ? (
-          <a className="edit" onClick={() => setEdit(false)}>
-            <FaPencilAlt size="2rem" />
-          </a>
-        ) : (
-          <a className="edit" onClick={() => setEdit(true)}>
-            <MdPreview size="2rem" />
-          </a>
+        {isMe && (
+          <>
+            {edit ? (
+              <div
+                title="Preview"
+                className="edit"
+                onClick={() => setEdit(false)}
+              >
+                <MdPreview size="2rem" color="purple" />
+              </div>
+            ) : (
+              <div title="Edit" className="edit" onClick={() => setEdit(true)}>
+                <FaPencilAlt size="2rem" color="green" />
+              </div>
+            )}
+          </>
         )}
       </div>
     </EditContext.Provider>

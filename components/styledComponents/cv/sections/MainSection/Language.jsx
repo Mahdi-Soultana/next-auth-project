@@ -1,6 +1,6 @@
 import React from "react";
-import React from "react";
-import { useEditContext, useInitValue } from "./WrapperEdit";
+
+import { useEditContext, useInitValue } from "../WrapperEdit";
 import ReactMarkdown from "react-markdown";
 
 function Skills({ user, languages }) {
@@ -10,9 +10,9 @@ function Skills({ user, languages }) {
     setValue,
     languages ||
       `
-       - English
-       - French
-       - Arabic
+- English
+- French
+- Arabic
     `,
   );
 

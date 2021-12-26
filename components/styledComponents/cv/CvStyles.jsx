@@ -60,16 +60,31 @@ export const CvStyles = styled.section`
   .underline--verticle {
     display: block;
     width: 2px;
-    height: 230px;
+    height: 200px;
 
     background-color: #333;
   }
   footer {
+    textarea {
+      min-height: 23vh;
+    }
     border-top: 2px solid #333;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     /* align-items: baseline; */
+    ul {
+      height: 141px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      width: 100%;
+      align-content: space-between;
+      justify-content: flex-start;
+      li {
+        width: 100px;
+      }
+    }
     li {
       padding: 0.2rem 0;
       font-size: 1.2rem;
@@ -79,23 +94,28 @@ export const CvStyles = styled.section`
   }
   .wrapperInfo {
     position: relative;
-    textarea {
-      width: 90%;
-      min-height: 10vh;
-      height: 100%;
-      resize: none;
-      overflow: auto;
-      padding: 0.5rem 1rem;
-      font-size: 1.3rem;
+  }
+  .edit {
+    position: absolute;
+    top: -1rem;
+    right: 1rem;
+    display: inline-block;
+    cursor: pointer;
+  }
+  textarea {
+    width: 90%;
+    min-height: 10vh;
+    height: 100%;
+    overflow: auto;
+    padding: 0.5rem 1rem;
+    font-size: 1.3rem;
 
-      font-famaily: inherite;
-    }
-    .edit {
-      position: absolute;
-      top: -1rem;
-      right: 1rem;
-      display: inline-block;
-      cursor: pointer;
+    font-famaily: inherite;
+  }
+  .study,
+  .experinces {
+    textarea {
+      min-height: 30vh !important;
     }
   }
 `;
@@ -118,7 +138,7 @@ export const AsideContactStyles = styled.aside`
   }
   .imgContainer {
     padding: 0.4rem;
-    background-color: #096cff;
+    background-image: linear-gradient(#06d8fd 50%, #0e1b3f 90% 100%);
     width: 200px;
     height: 200px;
     border-radius: 50%;

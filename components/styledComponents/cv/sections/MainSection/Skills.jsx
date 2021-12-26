@@ -1,6 +1,6 @@
 import React from "react";
-import React from "react";
-import { useEditContext, useInitValue } from "./WrapperEdit";
+
+import { useEditContext, useInitValue } from "../WrapperEdit";
 import ReactMarkdown from "react-markdown";
 
 function Skills({ user, skills }) {
@@ -10,13 +10,13 @@ function Skills({ user, skills }) {
     setValue,
     skills ||
       `
-       - React JS
-       - Next JS
-       - Gatsby JS
-       - MongoDB
-       - GraphQL
-       - NodeJS
-       - WebRTC
+- React JS
+- Next JS
+- Gatsby JS
+- MongoDB
+- GraphQL
+- NodeJS
+- WebRTC
     `,
   );
 

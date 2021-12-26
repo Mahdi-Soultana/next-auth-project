@@ -2,12 +2,12 @@ import React from "react";
 import { useEditContext, useInitValue } from "../WrapperEdit";
 import ReactMarkdown from "react-markdown";
 
-function Name({ user, name }) {
+function LocalAddress({ user, localAddress }) {
   const { edit, value, setValue } = useEditContext();
 
-  useInitValue(setValue, "## " + name || "## Mahdi Soultana");
+  useInitValue(setValue, localAddress || "center Ville Kenitra Morocco");
 
   return <>{!edit && <ReactMarkdown>{value}</ReactMarkdown>}</>;
 }
 
-export default Name;
+export default LocalAddress;

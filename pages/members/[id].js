@@ -2,10 +2,12 @@ import React from "react";
 import Layout from "../../components/layout/Layout";
 import UsermModel from "../../db/model/User";
 import { getSession } from "next-auth/react";
+import UserProfile from "../../components/page-components/userProfile/UserProfile";
 function Me({ user, profile }) {
   return (
     <Layout title="Profile of user">
-      <h1>My Profile {user._id}</h1>
+      <h1>👋Welcom to my Profile 😀</h1>
+      <UserProfile user={user} />
     </Layout>
   );
 }
