@@ -4,6 +4,7 @@ import { getSession } from "next-auth/react";
 import connectData from "../db/connectDb";
 import userModel from "../db/model/User";
 export async function authenticated(req, res, next) {
+  await connectData();
   const session = await getSession({ req });
 
   if (!session) {

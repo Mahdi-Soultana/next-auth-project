@@ -17,7 +17,7 @@ function CardComponent({ data }) {
       <Card img={data.owner.avatar.url} title={data.title}>
         <motion.div className="card-img">
           <Image
-            src={data.thumbnial}
+            src={data.thumbnial.url}
             alt="user thumbnial"
             layout="responsive"
             width="100"

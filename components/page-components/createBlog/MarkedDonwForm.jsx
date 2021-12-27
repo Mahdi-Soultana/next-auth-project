@@ -19,7 +19,7 @@ function MarkedDonwForm({ blogState, posted = false }) {
         <div className="img-container">
           <Image
             src={
-              thumbnial ||
+              thumbnial.url ||
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8UPSUKSd7by1Gyxvnhc-3RZWHiplW18OI3hpgmw1lFG5s6FTHclW7zxxC6iHhXwN7Vk8&usqp=CAU"
             }
             alt="image"

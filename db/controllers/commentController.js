@@ -28,3 +28,20 @@ async function findCommentMe(req, res) {
 
   res.send({ success: "comments Found", posts: comments });
 }
+////
+////TOP Comments()
+export async function topComments(req, res) {
+  const userId = req.query.id;
+
+  try {
+    const Comments = await CommentModel.find({ owner: userId })
+      .sort(req.query.order)
+      .populate("owner", "avatar blogs");
+
+
+    res.send({ success: "Comments Found", comments: Comments });
+  } catch (error) {
+    console.log(error);
+    res.send({ error: "error while finding top Comments" });
+  }
+}

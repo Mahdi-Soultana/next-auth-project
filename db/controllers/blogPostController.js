@@ -185,3 +185,23 @@ export async function findPost(req, res) {
     throw new Error(e.message);
   }
 }
+
+////TOP Posts()
+export async function topPosts(req, res) {
+  const userId = req.query.id;
+
+  try {
+    const BlogPosts = await BlogPostModel.find(
+      { owner: userId },
+      { thumbnial: 1, title: 1, likes: 1 },
+    )
+      .sort(req.query.order)
+      .populate("owner", "avatar header name email createdAt");
+    console.log(BlogPosts);
+
+    res.send({ success: "posts Found", posts: BlogPosts });
+  } catch (error) {
+    console.log(error);
+    res.send({ error: "error while finding top posts" });
+  }
+}

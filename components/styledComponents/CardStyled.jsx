@@ -10,12 +10,14 @@ export const Card = styled(motion.article)`
   gap: 1rem;
   background-color: #fff;
   text-align: center;
-  border-radius: 0.35em;
-
-  box-shadow: 0 -5px 15px -10px #333, 0 1px 10px -10px #333;
+  border-radius: 0.5em;
+  margin-bottom: 2rem;
+  box-shadow: 0 -5px 20px -10px #333, 0 1px 14px -10px #000000;
   overflow: hidden;
   padding-bottom: 1rem;
   .card-img {
+    box-shadow: 0 -5px 20px -10px #333333c3, 0 1px 14px -10px #353535;
+    cursor: pointer;
     div {
       width: 100%;
       height: 100%;

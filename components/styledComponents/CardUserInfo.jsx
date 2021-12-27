@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import LikesController from "../likes-controller/Likes-controller";
 import styled, { css } from "styled-components";
-
+import { useRouter } from "next/router";
 export const InfoUserCard = styled.div`
   align-self: center;
   display: flex;
@@ -21,6 +21,7 @@ export const InfoUserCard = styled.div`
   }}
   .info {
     /* min-width: 100px; */
+    cursor: pointer;
     display: grid;
     justify-content: space-around;
     align-items: center;
@@ -99,14 +100,21 @@ export const InfoUserCard = styled.div`
   }
 `;
 function CardUserInfo({ data, page = "blog", comment = false }) {
+  const router = useRouter();
   const [mount, setMount] = useState(false);
   useEffect(() => {
     setMount(true);
   }, []);
+
   return (
     mount && (
       <InfoUserCard page={page} img={data.owner?.avatar.url}>
-        <div className="info">
+        <div
+          className="info"
+          onClick={() => {
+            router.push("/members/" + data.owner?._id);
+          }}
+        >
           <div className="img-container" title="profile">
             <div></div>
           </div>

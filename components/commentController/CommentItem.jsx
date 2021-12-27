@@ -3,7 +3,7 @@ import React from "react";
 import CommentContent from "./CommentContent";
 import { CommentItemStyles } from "./CommentStyles";
 import CommentOwner from "./CommentOwner";
-function CommentItem({ comment, commentMangedState }) {
+function CommentItem({ comment }) {
   console.log(comment);
   return (
     <CommentItemStyles>
