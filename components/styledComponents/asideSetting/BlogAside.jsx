@@ -1,17 +1,16 @@
 import React from "react";
 import { useQuery } from "react-query";
 import BlogPostCard from "../Card";
-import { GetMethod } from "../../../utils/getFetch";
+import { getMethod } from "../../../utils/getFetch";
 function BlogAside({ userId }) {
   const { data, isLoading, isError } = useQuery(
     `blog user Id ${userId}`,
-    () => GetMethod(`/api/profiles/${userId}/blog?order=-likes`),
+    () => getMethod(`/api/profiles/${userId}/blog?order=-likes`),
     {
       staleTime: 6000,
       refetchOnWindowFocus: false,
     },
   );
-  console.log(data);
 
   return (
     <>
@@ -20,9 +19,9 @@ function BlogAside({ userId }) {
       ) : isError ? (
         <h3>Error try later !</h3>
       ) : (
-        (data?.posts[0] && <BlogPostCard data={data?.posts[0]} />) || (
-          <h2>No post have yet !</h2>
-        )
+        ((data?.posts[0] || false) && (
+          <BlogPostCard data={data?.posts[0]} />
+        )) || <h2>No post have yet !</h2>
       )}
     </>
   );

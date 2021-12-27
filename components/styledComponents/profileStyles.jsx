@@ -37,7 +37,7 @@ export const ProfileStyles = styled.article`
     justify-content: center;
     align-items: center;
     background-color: #e9e9e9;
-
+    cursor:pointer;
     > div {
       border-radius: 50%;
       width: 160px;

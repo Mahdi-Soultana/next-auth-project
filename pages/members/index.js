@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../../components/layout/Layout";
 import PageProfiles from "../../components/page-components/profiles/Profiles";
 import UsermModel from "../../db/model/User";
+import connectDb from "../../db/connectDb";
 import { getSession } from "next-auth/react";
 function Profiles({ users }) {
   return (
@@ -21,7 +22,7 @@ export const getServerSideProps = async (context) => {
       },
     };
   }
-
+  await connectDb();
   const users = await UsermModel.find({}, { password: 0 }).lean();
 
   return {

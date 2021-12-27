@@ -1,5 +1,6 @@
 import CommentModel from "../model/Comments";
 import BlogPostModel from "../model/BlogPosts";
+import connectDB from "../connectDb";
 
 ///createPost
 async function createComment(req, res) {
@@ -34,10 +35,10 @@ export async function topComments(req, res) {
   const userId = req.query.id;
 
   try {
+    await connectDB();
     const Comments = await CommentModel.find({ owner: userId })
       .sort(req.query.order)
       .populate("owner", "avatar blogs");
-
 
     res.send({ success: "Comments Found", comments: Comments });
   } catch (error) {

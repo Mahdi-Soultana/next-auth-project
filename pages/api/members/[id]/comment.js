@@ -1,4 +1,4 @@
-import ncFn, { authenticated } from "../../../../utils/ncFn";
+import ncFn from "../../../../utils/ncFn";
 
 import { topComments } from "../../../../db/controllers/commentController";
 ncFn.get(topComments);

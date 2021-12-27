@@ -3,9 +3,9 @@ import Layout from "../../components/layout/Layout";
 import UsermModel from "../../db/model/User";
 import { getSession } from "next-auth/react";
 import UserProfile from "../../components/page-components/userProfile/UserProfile";
-function Me({ user, profile }) {
+function Me({ user }) {
   return (
-    <Layout title="Profile of user">
+    <Layout title={`Profile ${user.name}`}>
       <h1>👋Welcom to my Profile 😀</h1>
       <UserProfile user={user} />
     </Layout>

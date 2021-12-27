@@ -1,5 +1,6 @@
 import BlogPostModel from "../model/BlogPosts";
 import CommentsModel from "../model/Comments";
+import connectDB from "../connectDb";
 
 ///createPost
 export async function createPost(req, res) {
@@ -191,6 +192,7 @@ export async function topPosts(req, res) {
   const userId = req.query.id;
 
   try {
+    await connectDB();
     const BlogPosts = await BlogPostModel.find(
       { owner: userId },
       { thumbnial: 1, title: 1, likes: 1 },
