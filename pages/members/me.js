@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../../components/layout/Layout";
 import MyProfile from "../../components/page-components/me/Me";
 import UsermModel from "../../db/model/User";
+import connectDb from "../../db/connectDb";
 import { getSession } from "next-auth/react";
 function Me(props) {
   return (
@@ -12,6 +13,7 @@ function Me(props) {
   );
 }
 export const getServerSideProps = async (context) => {
+  await connectDb();
   const session = await getSession(context);
   if (!session) {
     return {
@@ -21,9 +23,12 @@ export const getServerSideProps = async (context) => {
       },
     };
   }
-  const id = session.user.id || undefined;
 
-  const user = await UsermModel.findById(id, { password: 0 });
+  const id = session.user.id || undefined;
+  const user = await UsermModel.findById(id, { password: 0 }).populate({
+    path: "blogs",
+    options: { sort: { likesCount: -1 } },
+  });
 
   return {
     props: {

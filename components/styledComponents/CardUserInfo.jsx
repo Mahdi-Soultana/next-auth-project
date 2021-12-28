@@ -119,7 +119,7 @@ function CardUserInfo({ data, page = "blog", comment = false }) {
             <div></div>
           </div>
           <div className="owner" title="owner">
-            <motion.h3>{data.owner?.email}</motion.h3>
+            <motion.h3>{data.owner?.name}</motion.h3>
             {!comment && (
               <h5>
                 created At:<span>2020/23/01</span>

@@ -23,7 +23,11 @@ export const getServerSideProps = async (context) => {
   }
   const id = context.params.id;
 
-  const user = await UsermModel.findById(id, { password: 0 });
+  const user = await UsermModel.findById(id, { password: 0 }).populate({
+    path: "blogs",
+    select: "thumbnial likes title likesCount",
+    options: { sort: { likesCount: -1 } },
+  });
 
   return {
     props: {

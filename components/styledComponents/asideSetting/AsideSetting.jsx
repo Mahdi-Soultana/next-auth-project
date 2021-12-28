@@ -9,7 +9,7 @@ function AsideSetting({ user, isMe }) {
     <AsideSettingStyles>
       <FollowBtn user={user} />
       <h1>Top Blogs :</h1>
-      <BlogAside userId={user._id} />
+      <BlogAside user={user} />
       <h1>Top Comments :</h1>
       <CommentAside userId={user._id} />
       {isMe && (
