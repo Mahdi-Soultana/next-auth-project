@@ -1,5 +1,6 @@
 import React, { useContext, useState, useMemo, use } from "react";
-import { useUserContext } from "../../../../hooks/userProvider";
+import { useUserContext } from "../../hooks/userProvider";
+import useEdit from "../../hooks/useEdit";
 const EditContext = React.createContext();
 import { FaPencilAlt } from "react-icons/fa";
 import { MdPreview } from "react-icons/md";
@@ -15,7 +16,7 @@ export function handelChange(e, setState, edit) {
 }
 ////////////Main Component
 function WrapperEdit({ userId, children, label = "description" }) {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
   const {
     user: { id },
   } = useUserContext();
@@ -24,6 +25,11 @@ function WrapperEdit({ userId, children, label = "description" }) {
 
   const [edit, setEdit] = useMemo(() => StateEdit, [StateEdit]);
   const isMe = userId === id;
+  useEdit(
+    useMemo(() => value, [value]),
+    label,
+    edit,
+  );
   return (
     <EditContext.Provider value={{ edit, value, setValue }}>
       <div className={"wrapperInfo"}>
@@ -43,16 +49,22 @@ function WrapperEdit({ userId, children, label = "description" }) {
         {isMe && (
           <>
             {edit ? (
-              <div
-                title="Preview"
-                className="edit"
-                onClick={() => setEdit(false)}
-              >
-                <MdPreview size="2rem" color="purple" />
-              </div>
+              value.trim().length > 10 && (
+                <div
+                  title={`Preview ${label}`}
+                  className="edit"
+                  onClick={() => setEdit(false)}
+                >
+                  <MdPreview size="2rem" color="purple" />
+                </div>
+              )
             ) : (
-              <div title="Edit" className="edit" onClick={() => setEdit(true)}>
-                <FaPencilAlt size="2rem" color="green" />
+              <div
+                title={`Edit ${label}`}
+                className="edit"
+                onClick={() => setEdit(true)}
+              >
+                <FaPencilAlt size="1.5rem" color="green" />
               </div>
             )}
           </>

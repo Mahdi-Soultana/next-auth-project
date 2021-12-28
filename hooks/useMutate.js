@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useMutation } from "react-query";
 import { postMethod } from "../utils/mutateFn";
@@ -35,6 +35,13 @@ function useMutate(
     return response;
   }, [response]);
 
+  /////////
+  useEffect(() => {
+    if (response?.error) {
+      toast.error(response.error);
+    }
+  }, [response]);
+  /////////////////
   return { response, isLoading, isError, mutate };
 }
 

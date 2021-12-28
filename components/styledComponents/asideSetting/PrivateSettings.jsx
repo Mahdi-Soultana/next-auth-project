@@ -77,7 +77,7 @@ function PrivateSettings({ isMe, user, commentLikes }) {
     return acc;
   }, 0);
   const totalCommentLike = user.blogs.reduce((acc, cc) => {
-    acc += cc.comment.length;
+    acc += cc.comment?.length || 0;
     return acc;
   }, 0);
 
@@ -121,8 +121,8 @@ function PrivateSettings({ isMe, user, commentLikes }) {
             </label>
           </section>
 
-          <h2>Change your Password</h2>
-          <p>*****************</p>
+          {/* <h2>Change your Password</h2>
+          <ChangePassword password={"xxxxxxxxxxx"} /> */}
         </div>
       )}
     </PrivateSettingsStyles>

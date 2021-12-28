@@ -7,7 +7,7 @@ import Exprience from "./sections/MainSection/Expreience";
 import Study from "./sections/MainSection/Study";
 import Skills from "./sections/MainSection/Skills";
 import Languages from "./sections/MainSection/Language";
-import WrapperEdit from "./sections/WrapperEdit";
+import WrapperEdit from "../WrapperEdit";
 function MainInfo({ user }) {
   return (
     <MainStyles>

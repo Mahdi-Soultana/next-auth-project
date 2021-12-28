@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useEditContext, useInitValue } from "../WrapperEdit";
+import { useEditContext, useInitValue } from "../../../WrapperEdit";
 import ReactMarkdown from "react-markdown";
 
 function Avatar({ avatar }) {

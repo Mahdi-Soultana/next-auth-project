@@ -1,6 +1,5 @@
 import UserModel from "../model/User";
 
-///createPost
 export async function followManagment(req, res) {
   const user = req.user;
   const type = req.body.type;
@@ -36,6 +35,63 @@ export async function followManagment(req, res) {
           success: "you unfollow this user !",
           id: userToUnFollow._id,
           status: "remove",
+        });
+        break;
+
+      default:
+        res.json({
+          error: "this case not handeled!",
+        });
+        break;
+    }
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+}
+
+////UpdateProfile
+
+export async function updateProfile(req, res) {
+  const user = req.user;
+  const label = req.body.label;
+
+  try {
+    switch (label) {
+      case "title":
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+      case "name":
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+
+      case "description":
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+      case "experience":
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+
+      case "study":
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+      case "skills":
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+      case "languages":
+        res.json({
+          success: "your " + label + " was is Updated",
         });
         break;
 

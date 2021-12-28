@@ -1,6 +1,6 @@
 import React from "react";
 import { AsideContactStyles } from "./CvStyles";
-import WrapperEdit from "./sections/WrapperEdit";
+import WrapperEdit from "../WrapperEdit";
 import Phone from "./sections/Aside/Phone";
 import Avatar from "./sections/Aside/Avatar";
 import Email from "./sections/Aside/Email";
