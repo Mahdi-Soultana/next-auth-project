@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import BlogPostCard from "../Card";
 import { getMethod } from "../../../utils/getFetch";
 function BlogAside({ user }) {
-  const blog = user.blogs[0] || {};
+  const blog = (user?.blogs.length > 0 && user.blogs[0]) || {};
   const avatar = user.avatar;
 
   const blogPost = {
