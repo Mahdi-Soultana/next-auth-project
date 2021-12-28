@@ -11,7 +11,7 @@ function CommentAside({ userId }) {
     `commentuserId ${userId}`,
     async () => getMethod(`/api/members/${userId}/comment?order=-likes`),
   );
-  const comment = data?.comments[0];
+  const comment = (data?.comments.length > 0 && data?.comments[0]) || false;
 
   return (
     <>
