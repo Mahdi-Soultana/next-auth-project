@@ -41,7 +41,7 @@ export const InfoUserCard = styled.div`
         }
         return css`
           order: 1;
-          grid-template-columns: min-content 1fr;
+          grid-template-columns: max-content 1fr;
         `;
       } else {
         return css`
@@ -51,11 +51,13 @@ export const InfoUserCard = styled.div`
       }
     }}
     h3 {
-      magrin-bottom: 1rem;
+      magrin-bottom: ${(p) => (p.page == "post" ? "1.4rem" : "0.5rem")};
+      font-size: 1.4rem;
     }
     h5 {
       font-family: "Roboto Slab", serif;
       font-size: 1.1rem;
+      padding-bottom: ${(p) => (p.page == "post" ? "0" : "1.4rem")};
       span {
         font-size: 1.3rem;
         margin: 0 1rem;
@@ -73,7 +75,7 @@ export const InfoUserCard = styled.div`
             height: 120px;
             border-radius: 50%;
             padding: 0.4rem;
-            background-color: #1730a0;
+            background-color: #2742b9;
           `;
         } else {
           return css`

@@ -24,7 +24,7 @@ function CommentAside({ userId }) {
           <CommentItemContainer key={comment._id}>
             <CommentItem comment={comment} />
           </CommentItemContainer>
-        )) || <h2>No comments have yet </h2>
+        )) || <h1>No comments have yet ! </h1>
       )}
     </>
   );

@@ -32,6 +32,7 @@ async function dbConnect() {
       bufferCommands: false,
       useCreateIndex: true,
       useUnifiedTopology: true,
+      useFindAndModify: true,
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {

@@ -12,7 +12,7 @@ function MarkedDonwForm({ blogState, posted = false }) {
   if (client) {
     var [{ content, title, thumbnial, ...rest }] = blogState;
   }
-
+  console.log(blogState);
   return (
     client && (
       <div className="marked-Down">

@@ -12,7 +12,9 @@ function BlogAside({ user }) {
   };
 
   return (
-    (blogPost.title && <BlogPostCard data={blogPost} />) || <h3>No POST yet</h3>
+    (blogPost.title && <BlogPostCard data={blogPost} />) || (
+      <h1>No Post have yet !</h1>
+    )
   );
 }
 

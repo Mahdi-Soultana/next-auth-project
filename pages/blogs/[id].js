@@ -18,7 +18,7 @@ export async function getServerSideProps(context) {
     await connectDB();
     // To Continue
     let blogPost = await BlogPostModel.findById(context.params.id)
-      .populate("owner", "avatar email")
+      .populate("owner", "avatar email name")
       .populate({
         path: "comment",
         populate: {

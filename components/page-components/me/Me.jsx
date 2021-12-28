@@ -1,6 +1,7 @@
 import React from "react";
 import CardProfile from "../../styledComponents/CardProfile";
 import CV from "../../styledComponents/cv/CV";
+import { useUserContext } from "../../../hooks/userProvider";
 import AsideSetting from "../../styledComponents/asideSetting/AsideSetting";
 import styled from "styled-components";
 export const MeStyles = styled.section`
@@ -13,9 +14,14 @@ export const MeStyles = styled.section`
   }
 `;
 function Me({ user }) {
+  const {
+    user: { id },
+  } = useUserContext();
+
+  const isMe = user._id === id;
   return (
     <MeStyles>
-      <AsideSetting user={user} />
+      <AsideSetting user={user} isMe={isMe} />
       <CV user={user} />
     </MeStyles>
   );
