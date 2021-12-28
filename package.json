@@ -16,7 +16,7 @@
     "env-cmd": "^10.1.0",
     "framer-motion": "^5.3.3",
     "mongoose": "^5.13.13",
-    "next": "11.1.2",
+    "next": "^11.1.3",
     "next-auth": "^4.0.2",
     "next-connect": "^0.11.0",
     "node-jose-tools": "^1.6.28",
