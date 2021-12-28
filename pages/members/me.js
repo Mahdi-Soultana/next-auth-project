@@ -1,15 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../../components/layout/Layout";
-import { useUser } from "../../store/userStore";
+
 import MyProfile from "../../components/page-components/me/Me";
 import UsermModel from "../../db/model/User";
 import connectDb from "../../db/connectDb";
 import { getSession } from "next-auth/react";
 function Me(props) {
-  const setUser = useUser((state) => state.setUser);
-  useEffect(() => {
-    setUser(props.user);
-  }, []);
   return (
     <Layout title="My Profile" width="91%">
       <h1>My Profile</h1>

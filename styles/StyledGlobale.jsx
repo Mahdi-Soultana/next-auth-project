@@ -248,7 +248,7 @@ main{
     text-shadow:0px 0px 5px rgba(0,0,0,.5);
     border-radius:.4em;
     box-shadow:0px 0px 5px rgba(0,0,0,.5);
-    color:#f1f1f1;
+    color:#f7f7f7;
     font-family: 'M PLUS Code Latin', sans-serif;
 
     margin:.5rem;

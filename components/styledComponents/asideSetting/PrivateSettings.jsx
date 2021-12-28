@@ -1,7 +1,6 @@
-import { compareSync } from "bcrypt";
 import React from "react";
 import styled from "styled-components";
-import { userStore } '../../../store/userStore';
+
 export const PrivateSettingsStyles = styled.aside`
   p {
     font-size: 1.7rem;
@@ -72,9 +71,16 @@ export const PrivateSettingsStyles = styled.aside`
   }
 `;
 
-function PrivateSettings({ isMe }) {
-  const user = userStore(state => state.user);
-  console.log(user)
+function PrivateSettings({ isMe, user, commentLikes }) {
+  const totalBlogsLike = user.blogs.reduce((acc, cc) => {
+    acc += cc.likesCount;
+    return acc;
+  }, 0);
+  const totalCommentLike = user.blogs.reduce((acc, cc) => {
+    acc += cc.comment.length;
+    return acc;
+  }, 0);
+
   return (
     <PrivateSettingsStyles>
       <h4>Related Info</h4>
@@ -82,23 +88,23 @@ function PrivateSettings({ isMe }) {
       <section className="info-profile">
         <div>
           <h3>All Follwers:</h3>
-          <span>40</span>
+          <span>{user?.follower?.length || 0}</span>
         </div>
         <div>
           <h3>All Followings:</h3>
-          <span>40</span>
+          <span>{user?.following?.length || 0}</span>
         </div>
         <div>
-          <h3>All likes:</h3>
-          <span>40</span>
+          <h3>All wining likes:</h3>
+          <span>{commentLikes + totalBlogsLike}</span>
         </div>
         <div>
           <h3>All Posts:</h3>
-          <span>40</span>
+          <span>{user?.blogs?.length || 0}</span>
         </div>
         <div>
           <h3>All Comments:</h3>
-          <span>40</span>
+          <span>{totalCommentLike}</span>
         </div>
       </section>
       {isMe && (
@@ -109,15 +115,12 @@ function PrivateSettings({ isMe }) {
               <span>Primary Color</span>
               <input type="color" id="primary" />
             </label>
-            <label htmlFor="Secondary">
-              <span>Secondary Color</span>
-              <input type="color" id="Secondary" />
+            <label htmlFor="header">
+              <h2>your header</h2>
+              <input type="file" id="header" />
             </label>
           </section>
-          <label htmlFor="header">
-            <h2>your header</h2>
-            <input type="file" id="header" />
-          </label>
+
           <h2>Change your Password</h2>
           <p>*****************</p>
         </div>

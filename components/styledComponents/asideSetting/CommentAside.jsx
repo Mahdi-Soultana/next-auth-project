@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 
 import { getMethod } from "../../../utils/getFetch";
@@ -6,13 +6,27 @@ import { getMethod } from "../../../utils/getFetch";
 import CommentItem from "../../commentController/CommentItem";
 import { CommentItemContainer } from "../../commentController/CommentStyles";
 
-function CommentAside({ userId }) {
+function CommentAside({ userId, setCommentLikes }) {
   const { data, isLoading, isError } = useQuery(
     `commentuserId ${userId}`,
     async () => getMethod(`/api/members/${userId}/comment?order=-likes`),
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      staleTime: 6000,
+    },
   );
-  const comment = (data?.comments.length > 0 && data?.comments[0]) || false;
+  const comment = (data?.comments?.length > 0 && data?.comments[0]) || false;
 
+  useEffect(() => {
+    if (data?.comments) {
+      const totalCommentLike = data?.comments.reduce((acc, cc) => {
+        acc += cc.likesCount;
+        return acc;
+      }, 0);
+      setCommentLikes(totalCommentLike);
+    }
+  }, [data]);
   return (
     <>
       {isLoading ? (
