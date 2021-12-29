@@ -41,18 +41,18 @@ function FollowBtn({
   }, [user, setIsFollow, id]);
 
   function handelClickLike() {
-    if (id !== user._id) {
+    if (id !== user?._id) {
       setIsFollow((prevS) => !prevS);
       mutate({
         type: isFollow ? "unfollow" : "follow",
-        id: user._id,
+        id: user?._id,
       });
     } else {
       toast.warn("You Can't Follow your self !");
     }
   }
   let title = "";
-  if (id !== user._id) {
+  if (id !== user?._id) {
     if (isFollow) {
       title = "UnFollow";
     } else {
@@ -70,7 +70,7 @@ function FollowBtn({
           isLoading={isLoading.toString()}
           isfollow={isFollow.toString()}
           onClick={handelClickLike}
-          disabled={id === user._id}
+          disabled={id === user?._id}
         >
           {isFollow ? "UnFollow" : "Follow"}
         </FollowBtnStyles>

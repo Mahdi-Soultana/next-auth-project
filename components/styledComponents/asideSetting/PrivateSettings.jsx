@@ -72,11 +72,11 @@ export const PrivateSettingsStyles = styled.aside`
 `;
 
 function PrivateSettings({ isMe, user, commentLikes }) {
-  const totalBlogsLike = user.blogs.reduce((acc, cc) => {
+  const totalBlogsLike = user?.blogs?.reduce((acc, cc) => {
     acc += cc.likesCount;
     return acc;
   }, 0);
-  const totalCommentLike = user.blogs.reduce((acc, cc) => {
+  const totalCommentLike = user?.blogs?.reduce((acc, cc) => {
     acc += cc.comment?.length || 0;
     return acc;
   }, 0);

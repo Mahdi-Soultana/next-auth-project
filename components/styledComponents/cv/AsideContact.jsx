@@ -8,6 +8,7 @@ import GitHub from "./sections/Aside/GitHub";
 import LinkedIn from "./sections/Aside/Linkedin";
 import LocalAddress from "./sections/Aside/LocalAddress";
 function AsideContact({ user }) {
+  console.log(user);
   return (
     <AsideContactStyles>
       <WrapperEdit userId={user._id} label="Avatar">
@@ -19,7 +20,7 @@ function AsideContact({ user }) {
       <label htmlFor="Mobile">
         <span>Mobile</span>
         <WrapperEdit userId={user._id} label="mobile">
-          <Phone phone={user?.mobile} />
+          <Phone mobile={user?.mobile} />
         </WrapperEdit>
       </label>
       <label htmlFor="Email">
@@ -44,7 +45,7 @@ function AsideContact({ user }) {
       <label htmlFor="Address">
         <span>Address: :</span>
         <WrapperEdit userId={user._id} label="address">
-          <LocalAddress localAdress={user?.address} />
+          <LocalAddress address={user?.address} />
         </WrapperEdit>
         <p></p>
       </label>

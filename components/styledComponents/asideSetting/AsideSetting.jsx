@@ -13,7 +13,7 @@ function AsideSetting({ user, isMe }) {
       <h1>Top Blogs :</h1>
       <BlogAside user={user} />
       <h1>Top Comments :</h1>
-      <CommentAside userId={user._id} setCommentLikes={setCommentLikes} />
+      <CommentAside userId={user?._id} setCommentLikes={setCommentLikes} />
 
       <PrivateSettings isMe={isMe} user={user} commentLikes={commentLikes} />
     </AsideSettingStyles>

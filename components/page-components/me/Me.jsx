@@ -18,7 +18,7 @@ function Me({ user }) {
     user: { id },
   } = useUserContext();
 
-  const isMe = user._id === id;
+  const isMe = user?._id === id;
   return (
     <MeStyles>
       <AsideSetting user={user} isMe={isMe} />
