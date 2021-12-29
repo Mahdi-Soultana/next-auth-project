@@ -60,17 +60,14 @@ function WrapperEdit({ userId, children, label = "description" }) {
                   onClick={async () => {
                     if (label.toLowerCase() == "email") {
                       setEdit(false);
-                      const res = await signOut({
-                        redirect: false,
-                        callbackUrl: "/login",
-                      });
 
-                      setTimeout(() => {
-                        toast.warn("you will be redirect right now !");
-                      }, 4000);
-                      setTimeout(() => {
+                      setTimeout(async () => {
+                        const res = await signOut({
+                          redirect: false,
+                          callbackUrl: "/login",
+                        });
                         router.replace(res.url);
-                      }, 8000);
+                      }, 6000);
                     } else {
                       setEdit(false);
                     }
