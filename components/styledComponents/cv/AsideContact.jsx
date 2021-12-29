@@ -10,7 +10,7 @@ import LocalAddress from "./sections/Aside/LocalAddress";
 function AsideContact({ user }) {
   return (
     <AsideContactStyles>
-      <WrapperEdit userId={user._id} label="Url Avatar">
+      <WrapperEdit userId={user._id} label="Avatar">
         <Avatar avatar={user?.avatar} />
       </WrapperEdit>
 
@@ -18,33 +18,33 @@ function AsideContact({ user }) {
       <h2>Get Touch :</h2>
       <label htmlFor="Mobile">
         <span>Mobile</span>
-        <WrapperEdit userId={user._id} label="Phone">
-          <Phone phone={user?.phone} />
+        <WrapperEdit userId={user._id} label="mobile">
+          <Phone phone={user?.mobile} />
         </WrapperEdit>
       </label>
       <label htmlFor="Email">
         <span>Email</span>
-        <WrapperEdit userId={user._id} label="email">
+        <WrapperEdit userId={user._id} label="Email">
           <Email email={user?.email} />
         </WrapperEdit>
       </label>
       <label htmlFor="LinkedIn">
         <span>LinkedIn:</span>
-        <WrapperEdit userId={user._id} label="linkedin">
+        <WrapperEdit userId={user._id} label="Linkedin">
           <LinkedIn linkedin={user?.linkedin} />
         </WrapperEdit>
       </label>
       <label htmlFor="GitHub">
         <span>GitHub :</span>
-        <WrapperEdit userId={user._id} label="github">
+        <WrapperEdit userId={user._id} label="Github">
           <GitHub github={user?.github} />
         </WrapperEdit>
         <p></p>
       </label>
       <label htmlFor="Address">
         <span>Address: :</span>
-        <WrapperEdit userId={user._id} label="localAdress">
-          <LocalAddress localAdress={user?.localAdress} />
+        <WrapperEdit userId={user._id} label="address">
+          <LocalAddress localAdress={user?.address} />
         </WrapperEdit>
         <p></p>
       </label>

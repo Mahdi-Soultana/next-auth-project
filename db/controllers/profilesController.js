@@ -58,38 +58,96 @@ export async function updateProfile(req, res) {
   try {
     switch (label) {
       case "title":
+        user.title = req.body.value;
+        await user.save();
         res.json({
           success: "your " + label + " was is Updated",
         });
         break;
       case "name":
+        user.name = req.body.value;
+        await user.save();
         res.json({
           success: "your " + label + " was is Updated",
         });
         break;
 
       case "description":
+        user.description = req.body.value;
+        await user.save();
         res.json({
           success: "your " + label + " was is Updated",
         });
         break;
       case "experience":
+        user.experience = req.body.value;
+        await user.save();
         res.json({
           success: "your " + label + " was is Updated",
         });
         break;
 
       case "study":
+        user.study = req.body.value;
+        await user.save();
         res.json({
           success: "your " + label + " was is Updated",
         });
         break;
       case "skills":
+        user.skills = req.body.value;
+        await user.save();
         res.json({
           success: "your " + label + " was is Updated",
         });
         break;
       case "languages":
+        user.languages = req.body.value;
+        await user.save();
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+      //aside Contact
+      case "avatar":
+        user.avatar.url = req.body.value;
+        await user.save();
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+      case "mobile":
+        user.mobile = req.body.value;
+        await user.save();
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+      case "email":
+        user.email = req.body.value;
+        await user.save();
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+
+      case "linkedin":
+        user.linkedin = req.body.value;
+        await user.save();
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+      case "github":
+        user.github = req.body.value;
+        await user.save();
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+      case "address":
+        user.address = req.body.value;
+        await user.save();
         res.json({
           success: "your " + label + " was is Updated",
         });
