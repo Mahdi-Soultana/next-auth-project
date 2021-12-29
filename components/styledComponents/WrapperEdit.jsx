@@ -4,6 +4,9 @@ import useEdit from "../../hooks/useEdit";
 const EditContext = React.createContext();
 import { FaPencilAlt } from "react-icons/fa";
 import { MdPreview } from "react-icons/md";
+import { toast } from "react-toastify";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 export function useInitValue(setStateInit, initValue) {
   React.useEffect(() => {
     setStateInit(initValue);
@@ -17,6 +20,7 @@ export function handelChange(e, setState, edit) {
 ////////////Main Component
 function WrapperEdit({ userId, children, label = "description" }) {
   const [value, setValue] = useState("");
+  const router = useRouter();
   const {
     user: { id },
   } = useUserContext();
@@ -53,7 +57,24 @@ function WrapperEdit({ userId, children, label = "description" }) {
                 <div
                   title={`Preview ${label}`}
                   className="edit"
-                  onClick={() => setEdit(false)}
+                  onClick={async () => {
+                    if (label.toLowerCase() == "email") {
+                      setEdit(false);
+                      const res = await signOut({
+                        redirect: false,
+                        callbackUrl: "/login",
+                      });
+
+                      setTimeout(() => {
+                        toast.warn("you will be redirect right now !");
+                      }, 4000);
+                      setTimeout(() => {
+                        router.replace(res.url);
+                      }, 8000);
+                    } else {
+                      setEdit(false);
+                    }
+                  }}
                 >
                   <MdPreview size="2rem" color="purple" />
                 </div>
@@ -62,7 +83,20 @@ function WrapperEdit({ userId, children, label = "description" }) {
               <div
                 title={`Edit ${label}`}
                 className="edit"
-                onClick={() => setEdit(true)}
+                onClick={async () => {
+                  if (label.toLowerCase() == "email") {
+                    let res = window.prompt(
+                      "Edting your email causes you to redirect to login Page: tape 'yes' !",
+                    );
+                    if (res?.toLowerCase() === "yes") {
+                      setEdit(true);
+                    } else {
+                      toast.warn("tape yes to change your email !");
+                    }
+                  } else {
+                    setEdit(true);
+                  }
+                }}
               >
                 <FaPencilAlt size="1.5rem" color="green" />
               </div>

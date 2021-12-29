@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 
 import styled from "styled-components";
 import Link from "next/link";
+
 import Image from "next/image";
 
 import { useRouter } from "next/router";
@@ -13,12 +14,23 @@ import { inClient } from "../../utils/inClient";
 function Header() {
   const router = useRouter();
   let { data: res } = useSession();
-  const { addUser, user } = useUserContext();
+  let { addUser, user } = useUserContext();
 
   res = useMemo(() => res, [res]);
+
   React.useEffect(() => {
     if (res) {
       addUser(res.user);
+    } else {
+      (async function () {
+        const res = await signOut({
+          redirect: false,
+          callbackUrl: "/login",
+        });
+
+        router.replace(res.url);
+        addUser(null);
+      })();
     }
   }, [res]);
   return (
