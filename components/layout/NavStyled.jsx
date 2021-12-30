@@ -16,7 +16,7 @@ export const NavStyled = styled.nav`
     overflow: hidden;
     padding: 0.3rem;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-    background-color: white;
+    background-color: ${(p) => p.mainColor || "white"};
     cursor: pointer;
     div {
       width: 100%;

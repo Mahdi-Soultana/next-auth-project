@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware";
 export const useUserInfo = create(
   persist(
     (set, get) => ({
-      color: "#333",
+      color: "#fff",
       header: "",
       setColor(color) {
         set({ color });

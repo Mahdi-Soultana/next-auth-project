@@ -11,10 +11,12 @@ import { signOut, getSession, useSession } from "next-auth/react";
 
 import { NavStyled } from "./NavStyled";
 import { useUserContext } from "../../hooks/userProvider";
+import { useUserInfo } from "../../store/userStore";
 import useMutate from "../../hooks/useMutate";
 import { inClient } from "../../utils/inClient";
 
 function Header() {
+  const color = useUserInfo((state) => state.color);
   const { mutate, response } = useMutate("/api/auth/signup", "POST", {
     pending: "creating your default profile ⏳",
     success: "your default profile created ✨",
@@ -38,8 +40,7 @@ function Header() {
       }
       if (res.user.id) {
         addUser(res.user);
-      } else {
-        console.log("hey sign me up");
+      } else if (res.user.id === null) {
         mutate({
           email: res.user.email,
           name: res.user.name,
@@ -51,7 +52,7 @@ function Header() {
 
   return (
     (inClient() && (
-      <NavStyled>
+      <NavStyled mainColor={color}>
         <h1 title="Home">
           <Link href={res ? "/welcome" : "/"}>NextAuth</Link>
         </h1>
