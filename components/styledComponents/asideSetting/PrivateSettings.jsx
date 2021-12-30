@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import HeaderSettings from "./HeaderSettings";
+import MainColorSettings from "./MainColorSettings";
 
 export const PrivateSettingsStyles = styled.aside`
   p {
@@ -113,11 +115,11 @@ function PrivateSettings({ isMe, user, commentLikes }) {
           <section className="colorsSettings">
             <label htmlFor="primary">
               <span>Primary Color</span>
-              <input type="color" id="primary" />
+              <MainColorSettings label="color" initColor={user?.color} />
             </label>
             <label htmlFor="header">
               <h2>your header</h2>
-              <input type="file" id="header" />
+              <HeaderSettings label="header" />
             </label>
           </section>
 

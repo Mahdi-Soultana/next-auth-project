@@ -1,14 +1,18 @@
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
-export const useUser = create(
+export const useUserInfo = create(
   persist(
-    (set) => ({
-      user: {},
-      setUser(user) {
-        set({ user });
+    (set, get) => ({
+      color: "#333",
+      header: "",
+      setColor(color) {
+        set({ color });
+      },
+      setHeader(header) {
+        set({ header });
       },
     }),
-    { name: "user" },
+    { name: "useUserInfo" },
   ),
 );

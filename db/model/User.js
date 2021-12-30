@@ -117,7 +117,7 @@ const user = new Schema(
       type: String,
       default: "Local adress exemple : morrocco Kenitra ",
     },
-    mainColor: { type: String, default: "#333" },
+    color: { type: String, default: "#333" },
   },
   { timestamps: true },
 );

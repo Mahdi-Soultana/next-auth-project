@@ -5,10 +5,10 @@ import BlogAside from "./BlogAside";
 import CommentAside from "./CommentAside";
 import PrivateSettings from "./PrivateSettings";
 
-function AsideSetting({ user, isMe }) {
+function AsideSetting({ user, isMe, color }) {
   const [commentLikes, setCommentLikes] = useState(0);
   return (
-    <AsideSettingStyles>
+    <AsideSettingStyles color={color}>
       <FollowBtn user={user} />
       <h1>Top Blogs :</h1>
       <BlogAside user={user} />

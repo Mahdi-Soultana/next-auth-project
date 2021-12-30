@@ -1,6 +1,6 @@
 import { SessionProvider } from "next-auth/react";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { ReactQueryDevtoolsPanel } from "react-query/devtools";
+// import { ReactQueryDevtoolsPanel } from "react-query/devtools";
 import UserPorvider from "../hooks/userProvider";
 import { StyledGlobale } from "../styles/StyledGlobale";
 import NextNProgress from "nextjs-progressbar";
@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           <StyledGlobale />
           <Component {...pageProps} />
         </UserPorvider>
-        <ReactQueryDevtoolsPanel />
+        {/* <ReactQueryDevtoolsPanel /> */}
       </QueryClientProvider>
     </SessionProvider>
   );

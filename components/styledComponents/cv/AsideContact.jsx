@@ -7,10 +7,11 @@ import Email from "./sections/Aside/Email";
 import GitHub from "./sections/Aside/GitHub";
 import LinkedIn from "./sections/Aside/Linkedin";
 import LocalAddress from "./sections/Aside/LocalAddress";
+import { useUserInfo } from "../../../store/userStore";
 function AsideContact({ user }) {
-  console.log(user);
+  const color = useUserInfo((state) => state.color);
   return (
-    <AsideContactStyles>
+    <AsideContactStyles colorPrimary={color}>
       <WrapperEdit userId={user._id} label="Avatar">
         <Avatar avatar={user?.avatar} />
       </WrapperEdit>

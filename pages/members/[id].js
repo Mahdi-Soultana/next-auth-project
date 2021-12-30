@@ -5,7 +5,11 @@ import { getSession } from "next-auth/react";
 import UserProfile from "../../components/page-components/userProfile/UserProfile";
 function Me({ user }) {
   return (
-    <Layout title={`Profile ${user.name}`}>
+    <Layout
+      title={`Profile ${user.name}`}
+      width="89%"
+      headerUrl={user.header.url}
+    >
       <h1>👋Welcom to my Profile 😀</h1>
       <UserProfile user={user} />
     </Layout>

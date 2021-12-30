@@ -18,6 +18,7 @@ function CreateBlogContainer({ selectedState, sendData }) {
     e.preventDefault();
     sendData(blogState[0]);
   };
+
   return (
     <>
       <div className="title-container">
@@ -30,7 +31,7 @@ function CreateBlogContainer({ selectedState, sendData }) {
         {selected === "edit" ? (
           <Form blogState={blogState} />
         ) : (
-          <MarkedDonwForm blogState={blogState} />
+          <MarkedDonwForm blogState={blogState} page="create" />
         )}
       </FormStyledC>
     </>

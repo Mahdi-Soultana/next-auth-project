@@ -7,7 +7,7 @@ import connectDb from "../../db/connectDb";
 import { getSession } from "next-auth/react";
 function Me(props) {
   return (
-    <Layout title="My Profile" width="91%">
+    <Layout title="My Profile" width="91%" headerUrl={props.user.header.url}>
       <h1>My Profile</h1>
       <MyProfile user={props.user} />
     </Layout>

@@ -1,4 +1,5 @@
 import UserModel from "../model/User";
+import { config } from "../../utils/cloudinary";
 
 export async function followManagment(req, res) {
   const user = req.user;
@@ -145,11 +146,32 @@ export async function updateProfile(req, res) {
           success: "your " + label + " was is Updated",
         });
         break;
+
       case "address":
         user.address = req.body.value;
         await user.save();
         res.json({
           success: "your " + label + " was is Updated",
+        });
+        break;
+
+      case "color":
+        user.color = req.body.value;
+        await user.save();
+        res.json({
+          success: "your " + label + " was is Updated",
+        });
+        break;
+
+      case "header":
+        const resImg = await config(req.body.value, "headers");
+        console.log(resImg);
+        user.header.public_id = resImg.public_id;
+        user.header.url = resImg.secure_url;
+        await user.save();
+
+        res.json({
+          success: "your " + label + " was  Updated",
         });
         break;
 
@@ -160,6 +182,7 @@ export async function updateProfile(req, res) {
         break;
     }
   } catch (e) {
+    console.log(e);
     res.status(400).json({ error: e.message });
   }
 }

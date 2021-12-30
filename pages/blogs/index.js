@@ -6,6 +6,7 @@ import Layout from "../../components/layout/Layout";
 import BlogComponent from "../../components/page-components/blog/BlogComponent";
 
 function BlogPots(props) {
+  console.log(props);
   return (
     <Layout title="Blogs Community">
       <h1>Blogs of All the community</h1>
@@ -18,7 +19,7 @@ export const getServerSideProps = async (context) => {
     await connectDB();
     let blogPosts = await BlogPostModel.find(
       {},
-      { thumbnial: 1, title: 1, likes: 1 },
+      { thumbnial: 1, title: 1, likes: 1, createdAt: 1, updatedAt: 1 },
     ).populate("owner", "avatar email name");
     blogPosts = JSON.parse(JSON.stringify(blogPosts));
 

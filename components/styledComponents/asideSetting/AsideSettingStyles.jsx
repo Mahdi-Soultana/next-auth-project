@@ -1,7 +1,7 @@
 import styled from "styled-components";
 export const AsideSettingStyles = styled.aside`
   .settingsContainer {
-    background-color: #8892ee64;
+    background-color: ${(p) => p.color || "#c117c7"};
     padding: 1rem;
     margin-right: 1rem;
     margin-left: -2rem;

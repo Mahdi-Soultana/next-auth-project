@@ -6,6 +6,7 @@ import Head from "next/head";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
+import HeaderProfile from "./HeaderProfile";
 export const LayoutStyled = styled.div`
   display: grid;
   grid-template-rows: min-content 1fr min-content;
@@ -16,7 +17,7 @@ export const LayoutStyled = styled.div`
     max-width: ${(p) => p.width};
   }
 `;
-function Layout({ children, title, width = "1000px" }) {
+function Layout({ children, title, width = "1000px", headerUrl = "" }) {
   return (
     <LayoutStyled width={width}>
       <Head>
@@ -28,6 +29,7 @@ function Layout({ children, title, width = "1000px" }) {
         />
       </Head>
       <Header />
+      <HeaderProfile headerUrl={headerUrl} />
       <main className="container">{children}</main>
       <Footer />
       <ToastContainer

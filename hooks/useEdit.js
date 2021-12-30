@@ -23,7 +23,9 @@ function useEdit(value, label, edit) {
         value,
       });
     }
-    setInitLoad(true);
+    if (!load) {
+      setInitLoad(true);
+    }
   }, [edit]);
 }
 

@@ -192,7 +192,7 @@ main{
   h1{
     padding:1rem;
     margin:1rem;
-
+    text-shadow:0px 0px 5px #ffffff;
   }
 }
 .marked-Down{

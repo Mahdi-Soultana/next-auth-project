@@ -13,26 +13,33 @@ export const CvStyles = styled.section`
   @media (max-width: 700px) {
     grid-template: min-content / 1fr;
   }
+  h3 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+    color: ${(p) => p.colorPrimary || "#06d8fd"};
+  }
   h4 {
-    font-size: 1.4rem;
-    font-weight: bold;
+    font-size: 1.7rem;
+    font-weight: 500;
     padding: 0;
     margin: 0;
     margin: 0.5rem auto 2rem;
   }
   h5 {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: bold;
     padding: 0;
     margin: 0;
-    color: #13bddb;
+    color: ${(p) => p.colorPrimary || "#06d8fd"};
   }
   h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: bold;
     padding: 0;
     margin: 1rem auto;
-    color: #13bddb;
+    color: ${(p) => p.colorPrimary || "#06d8fd"};
   }
 
   h1 {
@@ -134,11 +141,14 @@ export const AsideContactStyles = styled.aside`
     font-size: 1.2rem;
     font-weight: 600;
     line-height: 1.8;
-    color: #13bddb;
+    color: ${(p) => p.colorPrimary || "#06d8fd"};
   }
   .imgContainer {
     padding: 0.4rem;
-    background-image: linear-gradient(#06d8fd 50%, #0e1b3f 90% 100%);
+    background-image: linear-gradient(
+      ${(p) => p.colorPrimary || "#06d8fd"} 50%,
+      #00051d 90% 100%
+    );
     width: 200px;
     height: 200px;
     border-radius: 50%;

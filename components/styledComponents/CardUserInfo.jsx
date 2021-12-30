@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import LikesController from "../likes-controller/Likes-controller";
+import formatTime from "../../utils/formatTime";
 import styled, { css } from "styled-components";
 import { useRouter } from "next/router";
+
 export const InfoUserCard = styled.div`
   align-self: center;
   display: flex;
@@ -121,10 +123,11 @@ function CardUserInfo({ data, page = "blog", comment = false }) {
             <div></div>
           </div>
           <div className="owner" title="owner">
-            <motion.h3>{data.owner?.name}</motion.h3>
+            <motion.h3>{data.owner?.name.replace("##", "")}</motion.h3>
             {!comment && (
               <h5>
-                created At:<span>2020/23/01</span>
+                created At:
+                <span>{formatTime(data.createdAt, data.updatedAt)}</span>
               </h5>
             )}
           </div>
