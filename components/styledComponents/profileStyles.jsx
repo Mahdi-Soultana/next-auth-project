@@ -36,13 +36,15 @@ export const ProfileStyles = styled.article`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e9e9e9;
+    background: linear-gradient(
+      0deg,#f5f5f5fd  0% 1%,transparent 60% ),url(${(p) =>
+        p.src}) no-repeat center center/cover;
     cursor:pointer;
     > div {
       border-radius: 50%;
       width: 160px;
       height: 160px;
-      border: solid #5062cc; 3px;
+      border: solid ${(p) =>p.color ||"#5062cc"}  3px;
       div{
            width: 100%;
     height: 100%;

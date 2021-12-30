@@ -1,7 +1,12 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["encrypted-tbn0.gstatic.com", "res.cloudinary.com"],
+    domains: [
+      "res.cloudinary.com",
+      "avatars.githubusercontent.com",
+      "media-exp1.licdn.com",
+      "platform-lookaside.fbsbx.com",
+    ],
   },
   env: {
     JWT_SECRET: process.env.JWT_SECRET,

@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../../components/layout/Layout";
 import UsermModel from "../../db/model/User";
+import { inClient } from "../../utils/inClient";
 import { getSession } from "next-auth/react";
 import UserProfile from "../../components/page-components/userProfile/UserProfile";
 function Me({ user }) {
@@ -11,7 +12,7 @@ function Me({ user }) {
       headerUrl={user.header.url}
     >
       <h1>👋Welcom to my Profile 😀</h1>
-      <UserProfile user={user} />
+      {inClient() && <UserProfile user={user} />}
     </Layout>
   );
 }

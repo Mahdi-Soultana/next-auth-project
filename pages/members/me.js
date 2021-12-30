@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Layout from "../../components/layout/Layout";
-
+import { inClient } from "../../utils/inClient";
 import MyProfile from "../../components/page-components/me/Me";
 import UsermModel from "../../db/model/User";
 import connectDb from "../../db/connectDb";
@@ -9,7 +9,7 @@ function Me(props) {
   return (
     <Layout title="My Profile" width="91%" headerUrl={props.user.header.url}>
       <h1>My Profile</h1>
-      <MyProfile user={props.user} />
+      {inClient() && <MyProfile user={props.user} />}
     </Layout>
   );
 }

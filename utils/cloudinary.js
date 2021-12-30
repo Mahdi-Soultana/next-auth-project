@@ -38,3 +38,15 @@ export async function config(image, folder = "avatar") {
     );
   });
 }
+
+export async function destroyImage(public_id) {
+  return new Promise((reslove, reject) => {
+    cloudinary.v2.uploader.destroy(public_id, function (error, result) {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(result);
+    });
+  });
+}

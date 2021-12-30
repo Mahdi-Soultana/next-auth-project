@@ -6,7 +6,7 @@ import TwitterProvider from "next-auth/providers/twitter";
 import FacebookProvider from "next-auth/providers/facebook";
 import InstagramProvider from "next-auth/providers/instagram";
 import mongoose from "mongoose";
-
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import connectDb from "../../../db/connectDb";
 
 import UserModel from "../../../db/model/User";
@@ -56,15 +56,25 @@ export default NextAuth({
       },
     }),
   ],
+
   callbacks: {
     async jwt({ token }) {
-      token.any_property = "ANY_PROPERTY in [...nextauth] callbacks jwt !!  ";
       try {
         const user = await UserModel.findOne({ email: token.email });
-        token.userId = user.id;
+        if (!user) {
+          const userCreate = await UserModel.create({
+            email: token.email,
+            name: token.name,
+            avatar: { url: token.picture || token.image },
+          });
+          token.userId = userCreate.id;
+        } else {
+          token.userId = user.id;
+        }
       } catch (e) {
         token.userId = null;
       }
+      token.any_property = "ANY_PROPERTY in [...nextauth] callbacks jwt !!  ";
       return token;
     },
     async session({ session, token }) {
@@ -76,4 +86,5 @@ export default NextAuth({
     },
   },
   secret: process.env.JWT_SECRET,
+  // adapter: MongoDBAdapter(connectDb()),
 });

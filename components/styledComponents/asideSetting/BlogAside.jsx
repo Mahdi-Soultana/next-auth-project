@@ -8,7 +8,11 @@ function BlogAside({ user }) {
 
   const blogPost = {
     ...blog,
-    owner: { avatar, name: user?.name, _id: user?._id },
+    owner: {
+      avatar,
+      name: user?.name,
+      _id: user?._id,
+    },
   };
 
   return (

@@ -32,12 +32,12 @@ function CardProfile({ user, id }) {
   }
 
   return (
-    <ProfileStyles>
+    <ProfileStyles src={user.header.url} color={user.color}>
       <Link href={"/members/" + user._id} title={user.name}>
         <div className="avatar" title={user.name}>
           <div>
             <Image
-              src={user.avatar.url}
+              src={user.avatar?.url}
               width="100"
               height="100"
               layout="responsive"

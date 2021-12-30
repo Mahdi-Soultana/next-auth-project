@@ -11,6 +11,7 @@ function CardComponent({ data }) {
   if (typeof window !== "undefined") {
     client = true;
   }
+  console.log(data.thumbnial.url);
 
   return (
     (client && (

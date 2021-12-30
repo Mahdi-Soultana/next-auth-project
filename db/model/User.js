@@ -7,7 +7,6 @@ const user = new Schema(
   {
     password: {
       type: String,
-      required: true,
     },
 
     likes: [{ type: Schema.Types.ObjectId, ref: "user" }],
@@ -35,7 +34,7 @@ const user = new Schema(
       url: {
         type: String,
         default:
-          "https://res.cloudinary.com/soultana-mahdi/image/upload/v1638902215/next-auth-demo/avatars/bzk8jfhnabsraivlndlt.jpg",
+          "https://res.cloudinary.com/soultana-mahdi/image/upload/v1640804109/next-auth-demo/thumbnial/iiehv3lxtvoo2iyk5caw.jpg",
       },
     },
     name: {

@@ -21,7 +21,7 @@ async function signupController(req, res) {
       .catch((e) => {
         res.json({ error: "try diffrent email or password" });
       });
-  } else {
+  } else if (req.body.password) {
     try {
       const { email, password, name } = req.body;
       const user = await User.create({
@@ -33,6 +33,18 @@ async function signupController(req, res) {
       res.json({ success: "user created ", user });
     } catch (e) {
       res.json({ error: e.message });
+    }
+  } else {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      const userCreate = await User.create({
+        email: req.body.email,
+        name: req.body.name,
+        avatar: { url: req.body.image },
+      });
+      res.json({ success: "user created ", user });
+    } else {
+      res.json({ success: "user found ", user });
     }
   }
 }

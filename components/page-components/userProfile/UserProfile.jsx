@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import CardProfile from "../../styledComponents/CardProfile";
 import CV from "../../styledComponents/cv/CV";
 import AsideSetting from "../../styledComponents/asideSetting/AsideSetting";
@@ -24,7 +24,7 @@ function UserProfile({ user }) {
 
   const color = useUserInfo((state) => state.color);
   const isMe = user?._id === id;
-  useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     setColor(user.color);
     setHeader(user.header.url);
   }, []);

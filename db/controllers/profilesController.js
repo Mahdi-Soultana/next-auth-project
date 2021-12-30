@@ -1,5 +1,5 @@
 import UserModel from "../model/User";
-import { config } from "../../utils/cloudinary";
+import { config, destroyImage } from "../../utils/cloudinary";
 
 export async function followManagment(req, res) {
   const user = req.user;
@@ -112,6 +112,7 @@ export async function updateProfile(req, res) {
       //aside Contact
       case "avatar":
         user.avatar.url = req.body.value;
+        await destroyImage(user.avatar.public_id);
         await user.save();
         res.json({
           success: "your " + label + " was is Updated",
@@ -164,8 +165,8 @@ export async function updateProfile(req, res) {
         break;
 
       case "header":
+        await destroyImage(user.header.public_id);
         const resImg = await config(req.body.value, "headers");
-        console.log(resImg);
         user.header.public_id = resImg.public_id;
         user.header.url = resImg.secure_url;
         await user.save();

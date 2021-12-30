@@ -11,13 +11,18 @@ import { signOut, getSession, useSession } from "next-auth/react";
 
 import { NavStyled } from "./NavStyled";
 import { useUserContext } from "../../hooks/userProvider";
+import useMutate from "../../hooks/useMutate";
 import { inClient } from "../../utils/inClient";
 
 function Header() {
+  const { mutate, response } = useMutate("/api/auth/signup", "POST", {
+    pending: "creating your default profile ⏳",
+    success: "your default profile created ✨",
+    error: "Something went wrong 🤯",
+  });
   const router = useRouter();
   let { data: res } = useSession();
   let { addUser, user } = useUserContext();
-  let [load, setInitLoad] = useState(false);
 
   React.useEffect(() => {
     getSession().then(async (res) => {
@@ -31,9 +36,19 @@ function Header() {
         addUser(null);
         return;
       }
-      addUser(res.user);
+      if (res.user.id) {
+        addUser(res.user);
+      } else {
+        console.log("hey sign me up");
+        mutate({
+          email: res.user.email,
+          name: res.user.name,
+          image: res.user.image || res.user.picture,
+        });
+      }
     });
   }, []);
+
   return (
     (inClient() && (
       <NavStyled>
@@ -88,7 +103,7 @@ function Header() {
                 onClick={async () => {
                   const res = await signOut({
                     redirect: false,
-                    callbackUrl: "/login",
+                    callbackUrl: router.pathname !== "/" ? "/login" : "/",
                   });
 
                   router.replace(res.url);

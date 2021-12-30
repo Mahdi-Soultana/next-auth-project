@@ -39,6 +39,7 @@ blogPostSchema.pre("remove", async function (next) {
   cloudinary.v2.uploader.destroy(
     this.thumbnial.public_id,
     function (error, result) {
+      console.log("thumbnadeleted");
       console.log(result, error);
       next();
     },
