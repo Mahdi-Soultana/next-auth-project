@@ -38,6 +38,7 @@ const user = new Schema(
       },
     },
     name: {
+      text: true,
       type: String,
       required: [true, "name required"],
     },
@@ -48,6 +49,7 @@ const user = new Schema(
     },
     title: {
       type: String,
+      text: true,
       default: "# FullStack web Developper (Ex)",
     },
     description: {
@@ -91,6 +93,7 @@ const user = new Schema(
      `,
     },
     skills: {
+      text: true,
       type: String,
       default: `
 - React JS
@@ -120,6 +123,7 @@ const user = new Schema(
   },
   { timestamps: true },
 );
+// user.index({ title: "text", name: "text", skills: "text" });
 
 user.pre("remove", async function (next) {
   const BlogPost = mongoose.model("blogPost");
@@ -146,4 +150,5 @@ user.pre("remove", async function (next) {
 user.set("toJson", { virtual: true });
 
 const User = mongoose.models.user || mongoose.model("user", user);
+// User.createIndexes();
 export default User;

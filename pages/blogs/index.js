@@ -19,7 +19,9 @@ export const getServerSideProps = async (context) => {
     let blogPosts = await BlogPostModel.find(
       {},
       { thumbnial: 1, title: 1, likes: 1, createdAt: 1, updatedAt: 1 },
-    ).populate("owner", "avatar email name");
+    )
+      .populate("owner", "avatar email name")
+      .limit(6);
     blogPosts = JSON.parse(JSON.stringify(blogPosts));
 
     const res = {

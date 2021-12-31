@@ -23,7 +23,22 @@ export const getServerSideProps = async (context) => {
     };
   }
   await connectDb();
-  const users = await UsermModel.find({}, { password: 0 }).lean();
+  const users = await UsermModel.find(
+    {},
+    {
+      password: 0,
+      skills: 0,
+      description: 0,
+      study: 0,
+      languages: 0,
+      experience: 0,
+      mobile: 0,
+      linkedin: 0,
+      address: 0,
+      github: 0,
+      email: 0,
+    },
+  ).lean();
 
   return {
     props: {

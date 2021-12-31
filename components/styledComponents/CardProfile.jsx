@@ -46,8 +46,9 @@ function CardProfile({ user, id }) {
         </div>
       </Link>
       <Link href={"/members/" + user._id}>
-        <h3 title={user.name}>{user.name || "Name"}</h3>
+        <h3 title={user.name}>{user.name.replace(/#/gi, "") || "Name"}</h3>
       </Link>
+      <h4 title={user.title}>{user.title.replace(/#/gi, "") || "Name"}</h4>
 
       <div className="info">
         <div>

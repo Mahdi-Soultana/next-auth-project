@@ -1,10 +1,11 @@
 import UserModel from "../model/User";
+import connectDb from "../connectDb";
 import { config, destroyImage } from "../../utils/cloudinary";
 
 export async function followManagment(req, res) {
   const user = req.user;
   const type = req.body.type;
-
+  await connectDb();
   try {
     switch (type) {
       case "follow":
@@ -185,5 +186,64 @@ export async function updateProfile(req, res) {
   } catch (e) {
     console.log(e);
     res.status(400).json({ error: e.message });
+  }
+}
+
+/////
+
+///findPostsAll
+export async function findUserAll(req, res) {
+  await connectDb();
+  const limit = 5;
+  let skip = ((Math.abs(+req.query.page) || 1) - 1) * limit;
+  let query = { ...req.query };
+
+  for (let key in query) {
+    if (key && query["search"]) {
+      query = {
+        ...query,
+        $text: { $search: `${query["search"]}` },
+      };
+      delete query.search;
+    }
+    if (key && query["page"]) {
+      delete query.page;
+    }
+  }
+  console.log(query);
+  try {
+    const users = await UserModel.find(query)
+      .limit(limit)
+      .skip(skip)
+      .sort(req.query.order || "")
+      .select({
+        password: 0,
+        skills: 0,
+        description: 0,
+        study: 0,
+        languages: 0,
+        experience: 0,
+        mobile: 0,
+        linkedin: 0,
+        address: 0,
+        github: 0,
+        email: 0,
+      })
+
+      .lean();
+    const counts = await UserModel.countDocuments(query);
+
+    res.status(200).json({
+      status: "success",
+      countPerPage: users.length,
+      totalCount: counts,
+      limit,
+      next:
+        skip < counts ? `?page=${(Math.abs(+req.query.page) || 1) + 1}` : null,
+      prev: req.query.page > 1 ? `?page=${req.query.page - 1}` : null,
+      users,
+    });
+  } catch (e) {
+    throw new Error(e.message);
   }
 }

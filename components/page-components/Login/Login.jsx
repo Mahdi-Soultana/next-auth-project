@@ -110,6 +110,7 @@ function Login() {
   }
   const loadingConst =
     load === "true" || isLoading == "true" ? "true" : "false";
+  console.log(loading);
   return (
     <StyledLogin onSubmit={handelSubmit} load={loadingConst} autoComplete="off">
       <h1> {switcher ? "SignUp Now" : "Login Now"}</h1>

@@ -9,12 +9,11 @@ export const HeaderProfileStyles = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  filter: blur(1px);
+  height: 150%;
+  filter: blur(0.02px);
   background: linear-gradient(
-      160deg,
-      ${(p) => p.color || "#0000006a"} 0% 10%,
-      transparent 30%
+      ${(p) => p.color || "#0000006a"} 0% 1%,
+      transparent 40%
     ),
     url(${(p) => p.src}) no-repeat center center/cover;
   z-index: -1;

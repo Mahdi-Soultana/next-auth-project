@@ -156,25 +156,60 @@ export async function updatePost(req, res) {
 }
 ///findPostsMe
 export async function findPostsMe(req, res) {
+  await connectDB();
   const BlogPosts = await BlogPostModel.find({ email: req.user.email });
 
   res.send({ success: "posts Found", posts: BlogPosts });
 }
 ///findPostsAll
 export async function findPostsAll(req, res) {
-  const BlogPosts = await BlogPostModel.find(
-    {},
-    { thumbnial: 1, title: 1, likes: 1 },
-  ).populate("owner", "avatar email");
+  await connectDB();
+  const limit = 6;
+  let skip = ((Math.abs(+req.query.page) || 1) - 1) * limit;
+  let query = { ...req.query };
 
-  res.send({
-    success: "posts Found",
-    posts: BlogPosts,
-    postsCount: BlogPosts.length,
-  });
+  for (let key in query) {
+    if (key && query["search"]) {
+      query = {
+        ...query,
+        $text: { $search: `"${query["search"]}"` },
+      };
+      delete query.search;
+    }
+    if (key && query["page"]) {
+      delete query.page;
+    }
+  }
+
+  try {
+    const blogPosts = await BlogPostModel.find(query)
+      .limit(limit)
+      .skip(skip)
+      .sort(req.query.order || "")
+      .select({
+        content: 0,
+      })
+      .populate("owner", "avatar name ")
+      .lean();
+    const counts = await BlogPostModel.countDocuments(query);
+
+    res.status(200).json({
+      limit,
+      status: "success",
+      countPerPage: limit,
+      totalCount: counts,
+      next:
+        skip < counts ? `?page=${(Math.abs(+req.query.page) || 1) + 1}` : null,
+      prev: req.query.page > 1 ? `?page=${req.query.page - 1}` : null,
+      blogPosts,
+    });
+  } catch (e) {
+    throw new Error(e.message);
+  }
 }
 ///findPost
 export async function findPost(req, res) {
+  await connectDB();
   const { id } = req.query || req.pramas;
   try {
     const BlogPost = await BlogPostModel.findById(id).populate(

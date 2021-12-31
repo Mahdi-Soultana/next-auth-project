@@ -6,6 +6,7 @@ export const Card = styled(motion.article)`
   opacity: 1;
   grid-template-columns: 1fr;
   grid-template-rows: minmax(100px, 220px) 50px 40px;
+  grid-auto-rows: min-content;
   padding-bottom: 1rem;
   gap: 1rem;
   background-color: #fff;

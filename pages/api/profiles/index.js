@@ -1,7 +1,10 @@
 import ncFn, { authenticated } from "../../../utils/ncFn";
 
-import { followManagment } from "../../../db/controllers/profilesController";
+import {
+  followManagment,
+  findUserAll,
+} from "../../../db/controllers/profilesController";
 
-ncFn.use(authenticated).put(followManagment);
+ncFn.get(findUserAll).use(authenticated).put(followManagment);
 
 export default ncFn;

@@ -259,12 +259,41 @@ main{
   }
 }
 
+.pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
+   .page-item {
+      background-color:#333;
+      color:white;
+      padding:.3rem;
+      margin:.1rem;
+      &.active{
+              background-color:#3f33eb;
+         padding:1.3rem;
+      }
+      &.disabled{
+        opacity:.4;
+        cursor:not-allowed;
+        a{
+        cursor:not-allowed;
+      }
+      }
+      a{
+        font-size:1.6rem;
+        margin:0 auto;
+        padding:.3rem;
+
+      }
+    }
+  }
  @media (max-width: 600px) {
   html {
   font-size: 56.5%;
 }
   }
+
       `;
 
 // font-family: 'M PLUS Code Latin', sans-serif;
