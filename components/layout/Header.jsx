@@ -25,13 +25,36 @@ function Header() {
   const router = useRouter();
   let { data: res } = useSession();
   let { addUser, user } = useUserContext();
+  let redirectBool = true;
+  let redirectTo;
+  switch (router.pathname) {
+    case "/":
+      redirectBool = false;
+      redirectTo = "/";
+      break;
+    case "/blogs":
+      redirectBool = false;
+      redirectTo = "/blogs";
+      break;
+    case "/about":
+      redirectBool = false;
+      redirectTo = "/about";
+      break;
+    case "/contact":
+      redirectBool = false;
+      redirectTo = "/contact";
+      break;
+    default:
+      redirectBool = true;
+      break;
+  }
 
   React.useEffect(() => {
     getSession().then(async (res) => {
       if (!res) {
         const res = await signOut({
           redirect: false,
-          callbackUrl: router.pathname !== "/" ? "/login" : "/",
+          callbackUrl: redirectBool ? "/login" : redirectTo,
         });
 
         router.replace(res.url);
@@ -58,19 +81,18 @@ function Header() {
         </h1>
 
         <ul>
+          <li title="Blogs">
+            <Link href={"/blogs"}>
+              <a>Blogs</a>
+            </Link>
+          </li>
+          <li title="members">
+            <Link href={"/members"}>
+              <a>Members</a>
+            </Link>
+          </li>
           {res?.user && (
             <>
-              {" "}
-              <li title="Blogs">
-                <Link href={"/blogs"}>
-                  <a>Blogs</a>
-                </Link>
-              </li>
-              <li title="members">
-                <Link href={"/members"}>
-                  <a>Members</a>
-                </Link>
-              </li>{" "}
               <li title="create-blog">
                 <Link href={"/create-blog"}>
                   <a>create Blog</a>
