@@ -19,7 +19,11 @@ function BlogComponent(props) {
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       staleTime: 6000,
-      initialData: { blogPosts: props.blogPosts.posts },
+      initialData: {
+        blogPosts: props.blogPosts.posts,
+        totalCount: props.blogPosts.totalCount,
+        countPerPage: props.blogPosts.countPerPage,
+      },
     },
   );
   const { blogPosts } = data;
@@ -39,7 +43,6 @@ function BlogComponent(props) {
         <PaginationComponent
           activeNum={activeNum}
           setActiveNum={setActiveNum}
-          countPerPage={data.countPerPage}
           countPerPage={data.countPerPage}
           totalItemsCount={data.totalCount}
         />

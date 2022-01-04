@@ -5,9 +5,7 @@ import { inClient } from "../../../utils/inClient";
 import { useUserContext } from "../../../hooks/userProvider";
 function ProfileComponent(props) {
   const { users } = props;
-  const {
-    user: { id },
-  } = useUserContext();
+  const { user: { id = "" } = {} } = useUserContext();
   return (
     (inClient() && users && (
       <ListStyled page="profile">

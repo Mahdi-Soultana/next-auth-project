@@ -15,19 +15,25 @@ function BlogPots(props) {
 }
 export const getServerSideProps = async (context) => {
   try {
+    const limit = 6;
     await connectDB();
     let blogPosts = await BlogPostModel.find(
       {},
       { thumbnial: 1, title: 1, likes: 1, createdAt: 1, updatedAt: 1 },
     )
       .populate("owner", "avatar email name")
-      .limit(6);
+      .limit(limit);
+
+    const counts = await BlogPostModel.countDocuments({});
     blogPosts = JSON.parse(JSON.stringify(blogPosts));
 
     const res = {
       success: "posts Found",
       posts: blogPosts,
       postsCount: blogPosts.length,
+      countPerPage: limit,
+      totalCount: counts,
+      limit,
     };
     return {
       props: {
